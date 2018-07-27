@@ -30,3 +30,13 @@ class Question:
 
 		self.data.update_one({'id' : ide}, {'$set' : what_to_update
 		})
+
+	def getQuestionById(self, ide):
+		"""getQuestionById(id)"""
+		return self.data.find_one({id : ide})
+
+	def deleteQuestion(self, **kwargs):
+		"""deleteQuestion(id)
+
+		Argument example: {'id' : 'q1'} or {'id' : 'q1'}, 'id' : 'q2'}"""
+		self.data.deleteMany(kwargs)
