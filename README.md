@@ -11,6 +11,12 @@ mongodb (on os x):
 brew install mongo
 ```
 
+django2:
+https://docs.djangoproject.com/en/2.0/releases/2.0/
+
+python3.6 (or later):
+https://www.python.org/downloads/
+
 Also you will need folder `data/db` to store data with mongo
 ```
 mkdir data/db
