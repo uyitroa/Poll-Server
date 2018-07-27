@@ -19,6 +19,7 @@ https://www.python.org/downloads/
 
 Also you will need folder `data/db` to store data with mongo
 ```
+mkdir data
 mkdir data/db
 ```
 
