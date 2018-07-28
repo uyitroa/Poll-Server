@@ -35,8 +35,8 @@ class Question:
 		"""getQuestionById(id)"""
 		return self.data.find_one({id : ide})
 
-	def deleteQuestion(self, **kwargs):
+	def deleteQuestion(self, *kwargs):
 		"""deleteQuestion(id)
 
 		Argument example: {'id' : 'q1'} or {'id' : 'q1'}, 'id' : 'q2'}"""
-		self.data.deleteMany(kwargs)
+		self.data.delete_many(*kwargs)
