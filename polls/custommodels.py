@@ -4,15 +4,20 @@ class Question:
 	def __init__(self):
 		self.client = MongoClient('127.0.0.1', 27017)
 		self.data = self.client.db.question
-
+		if self.data.find_one({'count' : 'count'}) == None:
+			self.data.insert_one({'count' : 'count', 'length' : 0})
 	def createQuestion(self, question_json):
 		"""createQuesiton(type, text, answers, images, video)"""
-		count = self.data.estimated_document_count() + 1
-		ide = 'q' + str(count)
+		count = self.data.find_one({'count' : 'count'})
+		count = count['length']
+
+		ide = 'q' + str(count + 1)
+		question_json['id'] = ide
 		self.data.insert_one(question_json)
+		self.data.update_one({'count' : 'count'}, {'$inc' : {'length' : 1}})
 
 	def updateQuestion(self, ide , what_to_update):
-		"""updateQuestion(id , what_to_update, new)
+		"""updateQuestion(id , what_to_update)
 
 		what_to_update -> string.   for example : 'id', 'type', 'text'
 		"""
