@@ -30,3 +30,17 @@ class Question:
 
 		self.data.update_one({'id' : ide}, {'$set' : what_to_update
 		})
+
+	def getQuestionById(self, ide):
+		"""getQuestionById(id)"""
+		q = self.data.find_one({'id' : ide})
+		if q != None:
+			return q['text']
+		return None
+
+	def deleteQuestion(self, *args):
+		"""Still in Beta version
+		deleteQuestion(id)
+
+		Argument example: {'id' : 'q1'} or {'id' : 'q1'}, 'id' : 'q2'}"""
+		self.data.remove(*args)
