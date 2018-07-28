@@ -32,7 +32,7 @@ class Question:
 		"""getQuestionById(id)"""
 		q = self.data.find_one({'id' : ide})
 		if q != None:
-			return q['text']
+			return q
 		return None
 
 	def deleteQuestion(self, *args):
@@ -67,6 +67,6 @@ class Answer:
 		"""getAnswerById(id)"""
 		a = self.data.find_one({"id" : ide})
 		if a != None:
-			return a["answer"]
+			return a
 		else:
 			return None
