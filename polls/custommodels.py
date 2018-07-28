@@ -5,20 +5,11 @@ class Question:
 		self.client = MongoClient('127.0.0.1', 27017)
 		self.data = self.client.db.question
 
-	def createQuestion(self, question_type, question_text, answers, images = [], video = None):
+	def createQuestion(self, question_json):
 		"""createQuesiton(type, text, answers, images, video)"""
 		count = self.data.estimated_document_count() + 1
 		ide = 'q' + str(count)
-		stuff = {
-			'id' : ide,
-			'type' : question_type,
-			'text' : question_text,
-			'video' : video,
-			'images' : images,
-			'answers' : answers
-			}
-
-		self.data.insert_one(stuff)
+		self.data.insert_one(question_json)
 
 	def updateQuestion(self, ide , what_to_update):
 		"""updateQuestion(id , what_to_update, new)
