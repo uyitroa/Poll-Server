@@ -33,10 +33,14 @@ class Question:
 
 	def getQuestionById(self, ide):
 		"""getQuestionById(id)"""
-		return self.data.find_one({id : ide})
+		q = self.data.find_one({'id' : ide})
+		if q != None:
+			return q['text']
+		return None
 
-	def deleteQuestion(self, *kwargs):
-		"""deleteQuestion(id)
+	def deleteQuestion(self, *args):
+		"""Still in Beta version
+		deleteQuestion(id)
 
 		Argument example: {'id' : 'q1'} or {'id' : 'q1'}, 'id' : 'q2'}"""
-		self.data.delete_many(*kwargs)
+		self.data.remove(*args)
