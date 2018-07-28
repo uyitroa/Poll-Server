@@ -43,4 +43,5 @@ class Question:
 		deleteQuestion(id)
 
 		Argument example: {'id' : 'q1'} or {'id' : 'q1'}, 'id' : 'q2'}"""
-		self.data.remove(*args)
+		for x in args:
+			self.data.remove(x)
