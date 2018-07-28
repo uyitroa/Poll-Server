@@ -7,7 +7,7 @@ class Question:
 		if self.data.find_one({'count' : 'count'}) == None:
 			self.data.insert_one({'count' : 'count', 'length' : 0})
 	def createQuestion(self, question_json):
-		"""createQuesiton(type, text, answers, images, video)"""
+		"""createQuesiton(question_json)"""
 		count = self.data.find_one({'count' : 'count'})
 		count = count['length']
 
