@@ -32,6 +32,7 @@ class Question:
 		"""getQuestionById(id)"""
 		q = self.data.find_one({'id' : ide})
 		if q != None:
+			q['_id'] = ''
 			return q
 		return None
 
