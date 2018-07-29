@@ -6,6 +6,7 @@ from .setup import global_question_class
 from rest_framework.decorators import api_view
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET
+import json
 
 # Create your views here.
 def error():
@@ -30,10 +31,24 @@ def getQuestion(request, ide):
 
 @api_view(['POST'])
 @csrf_exempt
-def submitAnswer(request):
+def checkAnswer(request):
 	try:
-		print(request.body)
-		return HttpResponse('OK')
+		answer_user = json.loads(request.body)
+		answer_server = global_answer_class.getAnswerById(ide)
+		same = 'True'
+		answer_user = answer_user['answer']
+		answer_server = answer_server['answer']
+
+		for x in range(len(answer_user)):
+			for y in range(len(answer_server)):
+				if answer_user[x] == answer_server[x]:
+					same = 'True'
+					break
+				else:
+					same  = 'False'
+			if same == 'False':
+				break
+		return HttpResponse(same)
 	except Exception as e:
 		print(e)
 		return error()
@@ -42,6 +57,15 @@ def getAnswer(request, ide):
 	try:
 		answer_json = global_answer_class.getAnswerById(ide)
 		return JsonResponse(answer_json)
+	except Exception as e:
+		print(e)
+		return error()
+
+@api_view(['POST'])
+@csrf_exempt
+def checkLogin(request):
+	try:
+		login_json = json.loads(request.body) # login_json = {'username' : 'konal', 'password' : 'idk'}
 	except Exception as e:
 		print(e)
 		return error()
