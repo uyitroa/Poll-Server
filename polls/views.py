@@ -18,10 +18,6 @@ def getQuestion(request, ide):
 		if question_json == None:
 			return error()
 		response = JsonResponse(question_json)
-		response["Access-Control-Allow-Origin"] = "*"
-		response["Access-Control-Allow-Methods"] = "GET, OPTIONS"
-		response["Access-Control-Max-Age"] = "1000"
-		response["Access-Control-Allow-Headers"] = "X-Requested-With, Content-Type"
 		return response
 	except Exception as e:
 		print(e)
@@ -32,6 +28,9 @@ def getQuestion(request, ide):
 def submitAnswer(request):
 	try:
 		data_json = json.loads(request.body)
+
+		global_answer_class.createAnswer(data_json)
+
 		questionID = data_json['questionID']
 		answer_list = global_answer_class.getAnswersByQuestionId(questionID)
 		print(answer_list)
