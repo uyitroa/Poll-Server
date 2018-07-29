@@ -22,4 +22,5 @@ urlpatterns = [
 	path('questions/<str:ide>/', views.getQuestion, name = 'getQuestion'),
 	path('answers/questions/<str:ide>/', views.getAnswer, name = 'getAnswer'),
 	path('answers/', views.submitAnswer, name = 'submitAnswer'),
+	path('logins/', views.checkLogin, name = 'checkLogin'),
 ]
