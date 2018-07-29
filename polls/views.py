@@ -19,10 +19,6 @@ def getQuestion(request, ide):
 		if question_json == None:
 			return error()
 		response = JsonResponse(question_json)
-		response["Access-Control-Allow-Origin"] = "*"
-		response["Access-Control-Allow-Methods"] = "GET, OPTIONS"
-		response["Access-Control-Max-Age"] = "1000"
-		response["Access-Control-Allow-Headers"] = "X-Requested-With, Content-Type"
 		return response
 	except Exception as e:
 		print(e)
@@ -30,33 +26,24 @@ def getQuestion(request, ide):
 
 @api_view(['POST'])
 @csrf_exempt
-def checkAnswer(request):
+def submitAnswer(request):
 	try:
-		answer_user = json.loads(request.body)
-		ide = answer_user['id']
-		answer_server = global_answer_class.getAnswerById(ide)
-		same = 'True'
-		answer_user = answer_user['answer']
-		answer_server = answer_server['answer']
+		data_json = json.loads(request.body)
 
-		for x in range(len(answer_user)):
-			for y in range(len(answer_server)):
-				if answer_user[x] == answer_server[x]:
-					same = 'True'
-					break
-				else:
-					same  = 'False'
-			if same == 'False':
-				break
-		return HttpResponse(same)
+		global_answer_class.createAnswer(data_json)
+
+		questionID = data_json['questionID']
+		answer_list = global_answer_class.getAnswersByQuestionId(questionID)
+		print(answer_list)
+		return JsonResponse(answer_list, safe = False)
 	except Exception as e:
 		print(e)
 		return error()
 
 def getAnswer(request, ide):
 	try:
-		answer_json = global_answer_class.getAnswerById(ide)
-		return JsonResponse(answer_json)
+		answer_json = global_answer_class.getAnswersByQuestionId(ide)
+		return JsonResponse(answer_json, safe = False)
 	except Exception as e:
 		print(e)
 		return error()
