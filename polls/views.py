@@ -1,8 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
-from .custommodels import Question, Answer
-from .setup import global_answer_class
-from .setup import global_question_class
+from .setup import global_account_class, global_answer_class, global_question_class
 from rest_framework.decorators import api_view
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET
@@ -66,7 +64,12 @@ def getAnswer(request, ide):
 @csrf_exempt
 def checkLogin(request):
 	try:
-		login_json = json.loads(request.body) # login_json = {'username' : 'konal', 'password' : 'idk'}
+		login_json = json.loads(request.body)  # login_json = {'username' : 'konal', 'password' : 'idk'}
+		account_login = global_account_class.userLogin(login_json)
+		if account_login == True:
+			return HttpResponse("True")
+		else:
+			return HttpResponse("False")
 	except Exception as e:
 		print(e)
 		return error()
