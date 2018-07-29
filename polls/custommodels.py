@@ -21,7 +21,7 @@ class Question:
 	def updateQuestion(self, ide , what_to_update):
 		"""updateQuestion(id , what_to_update)
 
-		what_to_update -> string.   for example : 'id', 'type', 'text'
+		what_to_update -> dict.   for example : {'type' : 0, 'text : 'idk'}
 		"""
 
 		stuff = self.data.find_one({'id' : ide})
@@ -65,7 +65,6 @@ class Answer:
 	def updateAnswer(self, ide, to_update):
 		"""updateAnswer(id , to_update, new)
 
-		to_update -> string.   for example : 'id', 'type', 'text'
 		"""
 		stuff = self.data.find_one({'id' : ide})
 
@@ -75,6 +74,7 @@ class Answer:
 		"""getAnswerById(id)"""
 		a = self.data.find_one({"id" : ide})
 		if a != None:
+			a['_id'] = ''
 			return a
 		else:
 			return None
