@@ -1,4 +1,5 @@
 from pymongo import MongoClient
+import json
 
 class Question:
 	def __init__(self):
@@ -73,6 +74,15 @@ class Answer:
 		else:
 			return None
 
+	def getAnswersByQuestionId(self, questionID):
+		cursor = self.data.find({'questionID' : questionID})
+		answer_list = []
+		if cursor == None:
+			return None
+		for x in cursor:
+			x['_id'] = ''
+			answer_list.append(x)
+		return answer_list
 class Account:
 	def __init__(self):
 		self.client = MongoClient('127.0.0.1', 27017)
