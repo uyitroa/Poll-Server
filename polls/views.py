@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
 from .custommodels import Question, Answer
-from .setup import *
+from .setup import global_answer_class
+from .setup import global_question_class
 
 # Create your views here.
 def error():
@@ -18,6 +19,14 @@ def getQuestion(request, ide):
 def submitAnswer(request):
 	try:
 		pass
+	except Exception as e:
+		print(e)
+		return error()
+
+def getAnswer(request, ide):
+	try:
+		answer_json = global_answer_class.getAnswerById(ide)
+		return JsonResponse(answer_json)
 	except Exception as e:
 		print(e)
 		return error()
