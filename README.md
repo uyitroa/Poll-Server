@@ -21,6 +21,13 @@ djangorestframework:
 ```
 pip3 install djangorestframework
 ```
+
+django-cors-headers:
+```
+pip3 install django-cors-headers
+```
+
+
 Also you will need folder `data/db` to store data with mongo
 ```
 mkdir data

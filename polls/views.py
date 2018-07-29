@@ -16,6 +16,8 @@ def getQuestion(request, ide):
 	try:
 		question_json = global_question_class.getQuestionById(ide)
 
+		if question_json == None:
+			return error()
 		response = JsonResponse(question_json)
 		response["Access-Control-Allow-Origin"] = "*"
 		response["Access-Control-Allow-Methods"] = "GET, OPTIONS"
