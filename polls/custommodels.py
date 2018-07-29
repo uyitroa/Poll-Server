@@ -75,6 +75,7 @@ class Answer:
 		"""getAnswerById(id)"""
 		a = self.data.find_one({"id" : ide})
 		if a != None:
+			a['_id'] = ''
 			return a
 		else:
 			return None
