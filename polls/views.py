@@ -39,7 +39,7 @@ def submitAnswer(request):
 
 @require_GET
 def getAnswer(request, ide):
-	#try:
+	try:
 		answer_json = global_answer_class.getAnswersByQuestionId(ide)
 		question_json = global_question_class.getQuestionById(ide)
 		answers = question_json['answers']
@@ -48,13 +48,12 @@ def getAnswer(request, ide):
 		for a in answers:
 			response[a] = []
 			for j in answer_json:
-				print(j)
 				if a in j['answer']:
 					response[a].append(j['userID'])
 		return JsonResponse(response)
-	#except Exception as e:
-	#	print(e)
-	#	return error()
+	except Exception as e:
+		print(e)
+		return error()
 
 @api_view(['POST'])
 @csrf_exempt
