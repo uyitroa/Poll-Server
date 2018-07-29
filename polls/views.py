@@ -8,8 +8,8 @@ import json
 import hashlib
 
 # Create your views here.
-def error():
-	return HttpResponse("Error")
+def error(error_message = "Error"):
+	return HttpResponse(error_message)
 
 @require_GET
 def getQuestion(request, ide):
@@ -32,19 +32,27 @@ def submitAnswer(request):
 
 		global_answer_class.createAnswer(data_json)
 
-		questionID = data_json['questionID']
-		answer_list = global_answer_class.getAnswersByQuestionId(questionID)
-		print(answer_list)
-		return JsonResponse(answer_list, safe = False)
+		return HttpResponse('True')
 	except Exception as e:
 		print(e)
-		return error()
+		return error('False')
 
 @require_GET
 def getAnswer(request, ide):
 	try:
 		answer_json = global_answer_class.getAnswersByQuestionId(ide)
-		return JsonResponse(answer_json, safe = False)
+		question_json = global_question_class.getQuestionById(ide)
+		answers = question_json['answers']
+
+
+		response = {}
+		for a in answers:
+			response[a] = []
+			for j in answer_json:
+				if a in j['answers']:
+					response[a].append(j['userID'])
+		print(response)
+		return JsonResponse(response)
 	except Exception as e:
 		print(e)
 		return error()
@@ -69,8 +77,12 @@ def checkLogin(request):
 @api_view(['POST'])
 @csrf_exempt
 def newAccount(request):
-	form_json = json.loads(request.body) # form_json = {"username" : "asdf", "password" : "af"}
-	hash = hashlib.md5(form_json["password"].encode())
-	hash = hash.hexdigest()
-	form_json["password"] = hash
-	global_account_class.createAccount(form_json)
+	try:
+		form_json = json.loads(request.body) # form_json = {"username" : "asdf", "password" : "af"}
+		hash = hashlib.md5(form_json["password"].encode())
+		hash = hash.hexdigest()
+		form_json["password"] = hash
+		global_account_class.createAccount(form_json)
+	except Exception as e:
+		print(e)
+		return error()
