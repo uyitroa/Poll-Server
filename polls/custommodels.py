@@ -7,8 +7,7 @@ class Question:
 		if self.data.find_one({'count' : 'count'}) == None:
 			self.data.insert_one({'count' : 'count', 'length' : 0})
 	def createQuestion(self, question_json):
-
-		"""createQuesiton(question_json)"""
+		"""createQuestion(question_json)"""
 		count = self.data.find_one({'count' : 'count'})
 		count = count['length']
 
@@ -23,9 +22,6 @@ class Question:
 
 		what_to_update -> dict.   for example : {'type' : 0, 'text : 'idk'}
 		"""
-
-		stuff = self.data.find_one({'id' : ide})
-
 		self.data.update_one({'id' : ide}, {'$set' : what_to_update})
 
 	def getQuestionById(self, ide):
@@ -66,8 +62,6 @@ class Answer:
 		"""updateAnswer(id , to_update, new)
 
 		"""
-		stuff = self.data.find_one({'id' : ide})
-
 		self.data.update_one({'id' : ide}, {'$set' : to_update})
 	
 	def getAnswerById(self, ide):
@@ -78,3 +72,44 @@ class Answer:
 			return a
 		else:
 			return None
+
+class Account:
+	def __init__(self):
+		self.client = MongoClient('127.0.0.1', 27017)
+		self.data = self.client.db.user_account
+		if self.data.find_one({'count' : 'count'}) == None:
+			self.data.insert_one({'count' : 'count', 'length' : 0})
+	
+	def createAccount(self, account_json):
+		"""createAccount(account_json)"""
+		count = self.data.find_one({'count' : 'count'})
+		count = count['length']
+
+		ide = 'u' + str(count + 1)
+		account_json['id'] = ide
+
+		self.data.insert_one(account_json)
+		self.data.update_one({'count' : 'count'}, {'$inc' : {'length' : 1}})
+		
+	def updateAccount(self, ide, to_update):
+		"""updateAccount(id, to_update)
+
+		to_update -> dict.   for example : {'type' : 0, 'text : 'idk'}
+		"""
+		self.data.update_one({'id' : ide}, {'$set' : to_update})
+		
+	def getAccountById(self, ide):
+		"""getAccountById(id)"""
+		u = self.data.find_one({"id" : ide})
+		if u != None:
+			u['_id'] = ''
+			return u
+		else:
+			return None	
+		
+	def userLogin(self, login_json):
+		user = self.data.find_one({"username" : login_json["username"], "password" : login_json["password"]})
+		if user != None:
+			return False
+		else:
+			return True
