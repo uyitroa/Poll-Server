@@ -39,6 +39,7 @@ def submitAnswer(request):
 		print(e)
 		return error()
 
+@require_GET
 def getAnswer(request, ide):
 	try:
 		answer_json = global_answer_class.getAnswersByQuestionId(ide)
