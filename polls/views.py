@@ -3,6 +3,9 @@ from django.http import JsonResponse, HttpResponse
 from .custommodels import Question, Answer
 from .setup import global_answer_class
 from .setup import global_question_class
+from rest_framework.decorators import api_view
+from django.views.decorators.csrf import csrf_exempt
+
 
 # Create your views here.
 def error():
@@ -16,6 +19,8 @@ def getQuestion(request, ide):
 		print(e)
 		return error()
 
+@api_view(['POST'])
+@csrf_exempt
 def submitAnswer(request):
 	try:
 		pass
