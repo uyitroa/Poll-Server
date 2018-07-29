@@ -5,6 +5,7 @@ from rest_framework.decorators import api_view
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET
 import json
+import hashlib
 
 # Create your views here.
 def error():
@@ -52,7 +53,10 @@ def getAnswer(request, ide):
 @csrf_exempt
 def checkLogin(request):
 	try:
-		login_json = json.loads(request.body)  # login_json = {'username' : 'konal', 'password' : 'idk'}
+		login_json = json.loads(request.body)
+		hash = hashlib.md5(login_json["password"].encode())
+		hash = hash.hexdigest()
+		login_json["password"] = hash
 		account_login = global_account_class.userLogin(login_json)
 		if account_login == True:
 			return HttpResponse("True")
@@ -61,3 +65,12 @@ def checkLogin(request):
 	except Exception as e:
 		print(e)
 		return error()
+	
+@api_view(['POST'])
+@csrf_exempt
+def newAccount(request):
+	form_json = json.loads(request.body) # form_json = {"username" : "asdf", "password" : "af"}
+	hash = hashlib.md5(form_json["password"].encode())
+	hash = hash.hexdigest()
+	form_json["password"] = hash
+	global_account_class.createAccount(form_json)
