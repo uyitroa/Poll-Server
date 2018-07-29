@@ -37,6 +37,19 @@ def submitAnswer(request):
 		print(e)
 		return error('False')
 
+@api_view(['POST'])
+@csrf_exempt
+def submitQuestion(request):
+	try:
+		data_json = json.loads(request.body)
+
+		global_question_class.createQuestion(data_json)
+
+		return HttpResponse('True')
+	except Exception as e:
+		print(e)
+		return error('False')
+
 @require_GET
 def getAnswer(request, ide): # ide is questionID
 	try:
