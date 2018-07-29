@@ -6,6 +6,7 @@ from .setup import global_question_class
 from rest_framework.decorators import api_view
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET
+import json
 
 # Create your views here.
 def error():
@@ -32,8 +33,11 @@ def getQuestion(request, ide):
 @csrf_exempt
 def submitAnswer(request):
 	try:
-		print(request.body)
-		return HttpResponse('OK')
+		answer_user = json.loads(request.body)
+		ide = answer_user['id']
+		answer_server = global_answer_class.getAnswerById(ide)
+
+
 	except Exception as e:
 		print(e)
 		return error()
