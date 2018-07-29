@@ -38,19 +38,27 @@ def submitAnswer(request):
 		return error('False')
 
 @require_GET
-def getAnswer(request, ide):
+def getAnswer(request, ide): # ide is questionID
 	try:
-		answer_json = global_answer_class.getAnswersByQuestionId(ide)
-		question_json = global_question_class.getQuestionById(ide)
-		answers = question_json['answers']
-
-		response = {}
-		for a in answers:
-			response[a] = []
+		answer_json = global_answer_class.getAnswersByQuestionId(ide) # get the users answers.
+		question_json = global_question_class.getQuestionById(ide) # get the question of the answer
+		answers = question_json['answers'] # get answer choices
+		print(question_json)
+		data = {}
+		data["questionID"] = question_json['id']
+		data["text"] = question_json['text']
+		data["text"] = question_json['text']
+		data["images"] = question_json['images']
+		data["video"] = question_json['video']
+		list_answers = [] # data output
+		for a in range(len(answers)):
+			list_answers.append({'value' : answers[a], 'users' : []})# add a list user for each field, for example {'non' : [], 'oui' : []}
 			for j in answer_json:
-				if a in j['answer']:
-					response[a].append(j['userID'])
-		return JsonResponse(response)
+				if a in j['answer']: # if an answer is chosen by the user
+					list_answers[a]['users'].append(j['userID']) # then append it to the field for example {'non' : ['u1'], 'oui' : []}
+		data["answers"] = list_answers
+		print(data)
+		return JsonResponse(data, safe = False) # return data
 	except Exception as e:
 		print(e)
 		return error()
