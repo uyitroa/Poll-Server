@@ -47,12 +47,19 @@ class Answer:
 	def __init__(self):
 		self.client = MongoClient('127.0.0.1', 27017)
 		self.data = self.client.db.answer
-		
+		if self.data.find_one({'count' : 'count'}) == None:
+			self.data.insert_one({'count' : 'count', 'length' : 0})
+			
 	def createAnswer(self, answer_json):
 		"""createAnswer()"""
-		count = self.data.estimated_document_count() + 1
-		ide = "a" + str(count)
+		count = self.data.find_one({'count' : 'count'})
+		count = count['length']
+		
+		ide = 'a' + str(count + 1)
+		answer_json['id'] = ide
+		
 		self.data.insert_one(answer_json)
+		self.data.update_one({'count' : 'count'}, {'$inc' : {'length' : 1}})
 		
 	def updateAnswer(self, ide, to_update):
 		"""updateAnswer(id , to_update, new)
