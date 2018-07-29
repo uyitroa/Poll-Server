@@ -110,6 +110,6 @@ class Account:
 	def userLogin(self, login_json):
 		user = self.data.find_one({"username" : login_json["username"], "password" : login_json["password"]})
 		if user != None:
-			return False
-		else:
 			return True
+		else:
+			return False
