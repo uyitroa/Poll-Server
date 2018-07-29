@@ -5,16 +5,23 @@ from .setup import global_answer_class
 from .setup import global_question_class
 from rest_framework.decorators import api_view
 from django.views.decorators.csrf import csrf_exempt
-
+from django.views.decorators.http import require_GET
 
 # Create your views here.
 def error():
 	return HttpResponse("Error")
 
+@require_GET
 def getQuestion(request, ide):
 	try:
 		question_json = global_question_class.getQuestionById(ide)
-		return JsonResponse(question_json)
+
+		response = JsonResponse(question_json)
+		response["Access-Control-Allow-Origin"] = "*"
+		response["Access-Control-Allow-Methods"] = "GET, OPTIONS"
+		response["Access-Control-Max-Age"] = "1000"
+		response["Access-Control-Allow-Headers"] = "X-Requested-With, Content-Type"
+		return response
 	except Exception as e:
 		print(e)
 		return error()
@@ -23,7 +30,8 @@ def getQuestion(request, ide):
 @csrf_exempt
 def submitAnswer(request):
 	try:
-		pass
+		print(request.body)
+		return HttpResponse('OK')
 	except Exception as e:
 		print(e)
 		return error()

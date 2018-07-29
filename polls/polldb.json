@@ -1,0 +1,97 @@
+{
+    "questions": [
+        {
+            "id": "q1",
+            "type": 0,
+            "text": "C'est qua le nom de lune en Vietnamienne?",
+            "video": null,
+            "images": [
+                "https://www.skyandtelescope.com/wp-content/uploads/0505-0704_32_200x200.gif",
+                "https://zippy.gfycat.com/ShorttermWigglyGypsymoth.gif"
+            ],
+            "answers": [
+                "Mat Trang",
+                "Mat Troi",
+                "Chi Hang",
+                "Cai Thung"
+            ]
+        },
+        {
+            "id": "q2",
+            "type": 0,
+            "text": "Est-ce que tu conaitre cette place?",
+            "video": "https://www.youtube.com/watch?v=nvvGIz19ZTs",
+            "images": [],
+            "answers": [
+                "Oui",
+                "Non"
+            ]
+        },
+        {
+            "id": "q3",
+            "type": 1,
+            "text": "Combien des etoies que tu peux nous donne?",
+            "video": "https://www.youtube.com/watch?v=nvvGIz19ZTs",
+            "images": [],
+            "answers": {
+              "min": 0,
+              "max": 5,
+              "step": 1
+            }
+        },
+        {
+            "id": "q4",
+            "type": 2,
+            "text": "Combien tu veux payer sur iPhoneX?",
+            "video": null,
+            "images": [],
+            "answers": {
+              "min": 0,
+              "max": 5000,
+              "step": 5
+            }
+        }
+    ],
+    "answers": [
+      {
+        "id": "a1",
+        "questionID": "q1",
+        "userID": "u3",
+        "answer": ["Mat Trang", "Mat Troi"],
+        "timestamp": 1532645102743
+      },
+      {
+        "id": "a2",
+        "questionID": "q1",
+        "userID": "u4",
+        "answer": ["Mat Trang"],
+        "timestamp": 153264510000
+      }
+    ],
+    "users": [
+      {
+        "id": "u1",
+        "name": "Louis",
+        "username": "konal",
+        "password": "encrypted"
+      },
+      {
+        "id": "u2",
+        "name": "Louis2",
+        "username": "konal2",
+        "password": "encrypted"
+      },
+      {
+        "id": "u3",
+        "name": "Louis3",
+        "username": "konal3",
+        "password": "encrypted3"
+      },
+      {
+        "id": "u4",
+        "name": "Louis4",
+        "username": "konal4",
+        "password": "encrypted"
+      }
+    ]
+}
