@@ -28,10 +28,9 @@ def getQuestion(request, ide):
 @csrf_exempt
 def submitAnswer(request):
 	try:
-		data_json = json.loads(request.body)
+		data_json = json.loads(request.body.decode("utf-8"))
 
 		global_answer_class.createAnswer(data_json)
-
 		return HttpResponse('True')
 	except Exception as e:
 		print(e)
@@ -41,8 +40,8 @@ def submitAnswer(request):
 @csrf_exempt
 def submitQuestion(request):
 	try:
-		data_json = json.loads(request.body)
-
+		data_json = json.loads( request.body.decode('utf-8') )
+		print('request: ', request.body)
 		global_question_class.createQuestion(data_json)
 
 		return HttpResponse('True')
@@ -56,7 +55,6 @@ def getAnswer(request, ide): # ide is questionID
 		answer_json = global_answer_class.getAnswersByQuestionId(ide) # get the users answers.
 		question_json = global_question_class.getQuestionById(ide) # get the question of the answer
 		answers = question_json['answers'] # get answer choices
-		print(question_json)
 		data = {}
 		data["questionID"] = question_json['id']
 		data["text"] = question_json['text']
@@ -92,7 +90,7 @@ def checkLogin(request):
 	except Exception as e:
 		print(e)
 		return error()
-	
+
 @api_view(['POST'])
 @csrf_exempt
 def newAccount(request):
