@@ -1,3 +1,5 @@
+import sys
+sys.path.append("../")
 from pymongo import MongoClient
 from PollServer.config import *
 import json

@@ -1,3 +1,5 @@
+import random
+
 fichier = open("Questions.txt", "r")
 output = open("db.json", "a")
 
@@ -7,7 +9,7 @@ list_type = txt.split("###\n")
 idq = 1
 idc = 1
 
-output.write("{\n")
+output.write("[\n")
 for x in range(len(list_type)):
 	group = list_type[x]
 	group = group.split("\n")
@@ -20,9 +22,15 @@ for x in range(len(list_type)):
 			json['type'] = x
 			json['images'] = []
 			json['video'] = "null"
+			json['status'] = random.randint(0, 2)
 			answers = parts[1]
 			json['answers'] = answers.split(" / ")
-			output.write(json)
-output.write("}")
+			json['creatorID'] = "c" + str(idc)
+			output.write(str(json) + ',\n')
+
+			if random.randint(0,1) == 0:
+				idc += 1
+			idq += 1
+output.write("]")
 fichier.close()
 output.close()
