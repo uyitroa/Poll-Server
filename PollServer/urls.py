@@ -22,5 +22,7 @@ urlpatterns = [
 	path('questions/<str:ide>/', views.getQuestion, name = 'getQuestion'),
 	path('questions/<str:ide>/answers', views.getAnswer, name = 'getAnswer'),
 	path('answers/', views.submitAnswer, name = 'submitAnswer'),
+	path('questions/',  views.submitQuestion, name = 'submitQuestion'),
 	path('login/', views.checkLogin, name = 'checkLogin'),
+    path('questions/<str:creatorID>/<str:status>', views.getCreatorQuestionByStatus, name = 'getCreatorQuestionByStatus'),
 ]
