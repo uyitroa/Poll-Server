@@ -105,3 +105,13 @@ def newAccount(request):
 	except Exception as e:
 		print(e)
 		return error()
+
+def getCreatorQuestionByStatus(request, creatorID, status):
+	try:
+		cursor = global_question_class.data.find({'creatorID' : creatorID, 'status' : status})
+		return JsonResponse(cursor, safe = False)
+	except Exception as e:
+		print(e)
+		return error()
+	
+	
