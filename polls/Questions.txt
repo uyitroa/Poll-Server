@@ -16,6 +16,6 @@ Quel(s) sont le(s) meilleurs langages de programmation ? JavaScript / Python / K
 Quels types de système sont les plus utilisés sur les Ordinateurs ? MacOs / Linux / Debian / KolibriOS / Raspeberry
 Quels sont les pays vainqueurs de la 2ème guerre mondiale ? France Gb USA / Allemagne Japanese / Allemagne France USA
 ###
-Combien de pourcentage d'eau de source il y a sur Terre ? 0.7% min : 0 % max : 30% step : 0.5
-Combien de grands fleuves comptent la France ? step:1 min: 0 max : 10
-A combien estime tu le pourcentage de personnes françaises vivants à l'étranger ? step : 1000000 min :100000000   
+Combien de pourcentage d'eau de source il y a sur Terre ? min: 0 max: 30 step: 0.5
+Combien de grands fleuves comptent la France ? min: 1 max: 10 step: 1
+A combien estime tu le pourcentage de personnes françaises vivants à l'étranger ? min: 25000000 max: 100000000 step: 5000000    
