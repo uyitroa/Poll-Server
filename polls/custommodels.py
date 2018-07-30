@@ -1,10 +1,10 @@
 from pymongo import MongoClient
+from PollServer.config import *
 import json
 
 class Question:
 	def __init__(self):
-		self.client = MongoClient('127.0.0.1', 27017)
-		self.data = self.client.db.question
+		self.data = database.question
 		if self.data.find_one({'count' : 'count'}) == None:
 			self.data.insert_one({'count' : 'count', 'length' : 0})
 	def createQuestion(self, question_json):
@@ -43,8 +43,7 @@ class Question:
 
 class Answer:
 	def __init__(self):
-		self.client = MongoClient('127.0.0.1', 27017)
-		self.data = self.client.db.answer
+		self.data = database.answer
 		if self.data.find_one({'count' : 'count'}) == None:
 			self.data.insert_one({'count' : 'count', 'length' : 0})
 			
@@ -85,8 +84,7 @@ class Answer:
 		return answer_list
 class Account:
 	def __init__(self):
-		self.client = MongoClient('127.0.0.1', 27017)
-		self.data = self.client.db.user_account
+		self.data = database.user_account
 		if self.data.find_one({'count' : 'count'}) == None:
 			self.data.insert_one({'count' : 'count', 'length' : 0})
 	
