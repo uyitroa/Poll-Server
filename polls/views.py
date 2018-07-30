@@ -31,10 +31,10 @@ def submitAnswer(request):
 		data_json = json.loads(request.body.decode("utf-8"))
 
 		global_answer_class.createAnswer(data_json)
-		return HttpResponse('True')
+		return JsonResponse({'update' : True})
 	except Exception as e:
 		print(e)
-		return error('False')
+		return JsonResponse({'update' : False})
 
 @api_view(['POST'])
 @csrf_exempt
