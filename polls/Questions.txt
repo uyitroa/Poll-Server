@@ -1,0 +1,32 @@
+True/False:
+Est-ce que Raspeberry Pi est plus easy à utiliser que MacOs ? Oui/Non 
+Est-ce que le fondateur de Facebook est vieux ? Oui/Non
+
+Question normale:
+Combien il y a de anime dans le monde ? 35413 / 2000 / 4538 / 18451
+Combien il y a de President des USA ? 45 / 28 / 54
+Combien coûte un MacOS ? 1000$ / 1650$ / 800$ 
+Qui est le fondateur de GitHub ? Tom Preston-Werner / Bill Gates / Markus Person / Drew Houston
+Qui est le(s) plus nul(s) codeur(s) au(x) monde ? Hung / Luong / Vincent / Julie 
+Combien coûte en moyenne une maison avec 4 chambres ? 350 000$ / 740 000$ / 1 000 000$ 
+Quel jour de l'année est le plus long ? 23 juin / 21 juin / 13 juillet / 4 décembre
+Combien il y a de saisons dans l'année ? 4 / 5 / 3 / 2
+Quel est le plat le plus manger en France ? Spaghetti / MacDo / Pizza / Frite
+Quels sont les noms des grands fleuves de France ? Rhone / Seine / Stras / Lul
+Quel est la capitale de la Russie ? Moscova / Moscou / Paris / Cachan 
+
+Slider Question:
+Combien de pourcentage d'eau de source il y a sur Terre ? 0.7% min : 0 % max : 30% step : 0.10
+Combien de grands fleuves comptent la France ? step:1 min : 0 max : 10
+A combien estime tu le pourcentage de personnes françaises vivants à l'étranger ? step : 5000 min :  
+
+Question multiples choix:
+Quel(s) sont le(s) meilleurs langages de programmation ? JavaScript / Python / Kotlin / Brainfuck
+Quels types de système sont les plus utilisés sur les Ordinateurs ? MacOs / Linux / Debian / KolibriOS / Raspeberry 
+Quels sont les pays vainqueurs de la 2ème guerre mondiale ? France Gb USA / Allemagne Japanese / Allemagne France USA
+
+Vidéo Question:
+A l'aide de cette vidéo, quelle est la location de ce patrimoine ? https://www.youtube.com/watch?v=6Q9rr26fHg8
+
+Photo Question:
+A l'aide de cette photo, peux-tu dire à quelle période de l'histoire elle se rapporte ? https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=2ahUKEwiPmJ_Ug8DcAhUNZFAKHamsCVQQjRx6BAgBEAU&url=http%3A%2F%2Flenouveaucenacle.fr%2Flame-romaine-un-voyage-initiatique-avec-pierre-grimal&psig=AOvVaw3soG1XPTTN540OVlAI0TNF&ust=1532806582920125
