@@ -1,5 +1,4 @@
 #CONFIF
-CLIENT = MongoClient('127.0.0.1', 27017)
 PORT_NAME = 8000
 HOST_NAME = '0.0.0.0'
 DATABASE = 'db'

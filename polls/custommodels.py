@@ -4,6 +4,9 @@ from pymongo import MongoClient
 from PollServer.config import *
 import json
 
+client = MongoClient('localhost', 27017)
+DATABASE = client.get_database(DATABASE)
+
 class Question:
 	def __init__(self):
 		self.data = DATABASE.question
