@@ -107,7 +107,12 @@ def newAccount(request):
 def getCreatorQuestionByStatus(request, creatorID, status):
 	try:
 		cursor = global_question_class.data.find({'creatorID' : creatorID, 'status' : status})
-		return JsonResponse(cursor, safe = False)
+		cursorList = []
+		for x in range(0, cursor.count(), 1):
+			dico = cursor[x]
+			dico['_id'] = ''
+			cursorList.append(dico)
+		return JsonResponse(cursorList, safe = False)
 	except Exception as e:
 		print(e)
 		return error()
