@@ -1,13 +1,13 @@
 from pymongo import MongoClient
 
-#CONFIG
-client = MongoClient('127.0.0.1', 27017)
-port_name = 8000
-host_name = '0.0.0.0'
-database = client.db
+#CONFIF
+CLIENT = MongoClient('127.0.0.1', 27017)
+PORT_NAME = 8000
+HOST_NAME = '0.0.0.0'
+DATABASE = CLIENT.db
 
 
 #GLOBALIZE
 def set_global():
-	global port_name, host_name, database
+	global PORT_NAME, HOST_NAME, DATABASE
 set_global()

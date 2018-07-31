@@ -1,5 +1,5 @@
 from PollServer.config import *
 import os
 
-name = host_name + ":" + str(port_name)
+name = HOST_NAME + ":" + str(PORT_NAME)
 os.system("python3 manage.py runserver " + name)

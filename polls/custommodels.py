@@ -6,7 +6,7 @@ import json
 
 class Question:
 	def __init__(self):
-		self.data = database.question
+		self.data = DATABASE.question
 		if self.data.find_one({'count' : 'count'}) == None:
 			self.data.insert_one({'count' : 'count', 'length' : 0})
 	def createQuestion(self, question_json):
@@ -45,7 +45,7 @@ class Question:
 
 class Answer:
 	def __init__(self):
-		self.data = database.answer
+		self.data = DATABASE.answer
 		if self.data.find_one({'count' : 'count'}) == None:
 			self.data.insert_one({'count' : 'count', 'length' : 0})
 			
@@ -86,7 +86,7 @@ class Answer:
 		return answer_list
 class Account:
 	def __init__(self):
-		self.data = database.user_account
+		self.data = DATABASE.user_account
 		if self.data.find_one({'count' : 'count'}) == None:
 			self.data.insert_one({'count' : 'count', 'length' : 0})
 	
