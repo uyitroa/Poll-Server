@@ -24,5 +24,5 @@ urlpatterns = [
 	path('answers/', views.submitAnswer, name = 'submitAnswer'),
 	path('questions/',  views.submitQuestion, name = 'submitQuestion'),
 	path('login/', views.checkLogin, name = 'checkLogin'),
-    path('questions/<str:creatorID>/<str:status>', views.getCreatorQuestionByStatus, name = 'getCreatorQuestionByStatus'),
+	path('questions/<str:creatorID>/<int:status>', views.getCreatorQuestionByStatus, name = 'getCreatorQuestionByStatus'),
 ]
