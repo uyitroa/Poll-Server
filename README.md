@@ -34,8 +34,8 @@ mkdir data
 mkdir data/db
 ```
 
-
-To start run mongo, run the mongo server first:
+To start the server:
 ```
 mongod
+python3 runserver.py
 ```
