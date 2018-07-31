@@ -133,6 +133,7 @@ def getQuestionsByCreatorId(request, creatorID):
 		print(e)
 		return error()
 
+@require_GET
 def getQuestionsByUserId(request, userID):
 	try:
 		cursor = global_answer_class.data.find({"userID" : userID})
@@ -146,7 +147,8 @@ def getQuestionsByUserId(request, userID):
 	except Exception as e:
 		print(e)
 		return error()
-		
-		
-	
-	
+
+def setNumber(request, number):
+	global asdf
+	asdf.append(number)
+	return HttpResponse(asdf)
