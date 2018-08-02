@@ -39,7 +39,7 @@ def submitQuestion(request):
 		return output('False')
 
 @api_view(['POST'])
-@crsf_exempt
+@csrf_exempt
 def updateQuestion(request):
 	try:
 		data_json = json.loads(request.body.decode("utf-8"))
