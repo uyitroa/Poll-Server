@@ -32,7 +32,7 @@ def submitAnswer(request):
 	try:
 		data_json = json.loads(request.body.decode("utf-8"))
 
-		global_answer_class.createAnswer(data_json)
+		global_answer_class.create(data_json)
 		return JsonResponse({'update' : True})
 	except Exception as e:
 		print(e)
@@ -44,7 +44,7 @@ def submitQuestion(request):
 	try:
 		data_json = json.loads( request.body.decode('utf-8') )
 		print('request: ', request.body)
-		global_question_class.createQuestion(data_json)
+		global_question_class.create(data_json)
 
 		return HttpResponse('True')
 	except Exception as e:
@@ -54,8 +54,8 @@ def submitQuestion(request):
 @require_GET
 def getAnswer(request, ide): # ide is questionID
 	try:
-		answer_json = global_answer_class.getAnswersByQuestionId(ide) # get the users answers.
-		question_json = global_question_class.getQuestionById(ide) # get the question of the answer
+		answer_json = global_answer_class.getDictById(ide) # get the users answers.
+		question_json = global_question_class.getDictById(ide) # get the question of the answer
 		answers = question_json['answers'] # get answer choices
 		data = {}
 		data["questionID"] = question_json['id']
@@ -100,7 +100,7 @@ def newAccount(request):
 		hash = hashlib.md5(form_json["password"].encode())
 		hash = hash.hexdigest()
 		form_json["password"] = hash
-		global_account_class.createAccount(form_json)
+		global_account_class.create(form_json)
 	except Exception as e:
 		print(e)
 		return error()
@@ -158,6 +158,20 @@ def getUserByQuestionText(request, text):
 		for x in range(0, cursor_answers.count(), 1):
 			dico = cursor_answers[x]
 			cursorList.append(dico["userID"])
+		return JsonResponse(cursorList, safe = False)
+	except Exception as e:
+		print(e)
+		return error()
+	
+def getAllAnswersByQuestionId(request, questionID):
+	try:
+		dict_answers = global_answer_class.data.find_one({"questionID" : questionID})
+		dict_id = dict_answers["id"]
+		cursorList = []
+		cursor_answers = global_answer_class.data.find({"answer" : dict_id})
+		for x in range(0, cursor_answers.count(), 1):
+			dico = cursor_answers[x]
+			cursorList.append(dico["answer"])
 		return JsonResponse(cursorList, safe = False)
 	except Exception as e:
 		print(e)
