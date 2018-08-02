@@ -43,8 +43,3 @@ def newAccount(request):
 		print(e)
 		return output('False')
 
-@api_view(['POST'])
-@crsf_exempt
-def createSession(request):
-	try:
-		data = json.loads(request.body.decode("utf-8"))

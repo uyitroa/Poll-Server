@@ -8,6 +8,7 @@ from django.views.decorators.http import require_GET
 import json
 import hashlib
 from pymongo import cursor
+import traceback
 
 # Create your views here.
 def output(error_message = "False"):
@@ -28,7 +29,7 @@ def submitAnswer(request):
 @require_GET
 def getAnswer(request, ide): # ide is questionID
 	try:
-		answer_json = global_answer_class.getDictById(ide) # get the users answers.
+		answer_json = global_answer_class.data.find({'questionID' : ide}) # get the users answers.
 		question_json = global_question_class.getDictById(ide) # get the question of the answer
 		answers = question_json['answers'] # get answer choices
 		data = {}
@@ -40,13 +41,14 @@ def getAnswer(request, ide): # ide is questionID
 		for a in range(len(answers)):
 			list_answers.append({'value' : answers[a], 'users' : []})# add a list user for each field, for example {'non' : [], 'oui' : []}
 			for j in answer_json:
+				print(j['answer'])
 				if a in j['answer']: # if an answer is chosen by the user
 					list_answers[a]['users'].append(j['userID']) # then append it to the field for example {'non' : ['u1'], 'oui' : []}
 		data["answers"] = list_answers
 		print(data)
 		return JsonResponse(data, safe = False) # return data
 	except Exception as e:
-		print(e)
+		traceback.print_exc()
 		return output('False')
 
 @require_GET
