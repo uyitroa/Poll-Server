@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from polls import views_questions, views_answers, views_accounts
+from polls import views_questions, views_answers, views_accounts, views_sessions, views_subjects
 
 urlpatterns = [
 	#path('admin/', admin.site.urls),
@@ -28,10 +28,14 @@ urlpatterns = [
 	path('questions/update/', views_questions.updateQuestion, name = 'updateQuestion'),
 	path('questions/delete/', views_questions.deleteQuestion, name = 'deleteQuestion'),
 
-	path('login/', views_accounts.checkLogin, name = 'checkLogin'),
-
 	path('questions/<str:creatorID>/<int:status>/', views_questions.getCreatorQuestionByStatus, name = 'getCreatorQuestionByStatus'),
 	path('questions/creator/<str:creatorID>/', views_questions.getQuestionsByCreatorId, name = 'getQuestionsByCreatorId'),
 	path('questions/user/<str:userID>/', views_questions.getQuestionsByUserId, name = 'getQuestionsByUserId'),
 	path('questions/allanswers/<str:questionID>/', views_answers.getAllAnswersByQuestionId, name = 'getAllAnswersByQuestionId'),
+    
+    path('subjects/<str:studentID>/', views_subjects.getAllSubjectsByStudentId, name = 'getAllSubjectsByStudentId'),
+    
+    path('sessions/<str:studentID>/', views_sessions.getAllSessionsByStudentId, name = 'getAllSessionsByStudentId'),
+    
+    path('login/', views_accounts.checkLogin, name = 'checkLogin'),
 ]

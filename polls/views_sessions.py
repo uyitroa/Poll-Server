@@ -45,3 +45,31 @@ def deleteSession(request):
 	except Exception as e:
 		print(e)
 		return output("False")
+
+@require_GET
+def getAllSessionsByStudentId(request, studentID):
+    try:
+        cursor = global_session_class.data.find({"students" : studentID})
+        cursorList = []
+        for x in range(0, cursor.count(), 1):
+            dico = cursor[x]
+            dico["_id"] = ""
+            cursorList.append(dico)
+        return JsonResponse(cursorList, safe = False)
+    except Exception as e:
+        print(e)
+        return output('False')
+
+@require_GET
+def getAllSessionsByProfessorId(request, professorID):
+    try:
+        cursor = global_session_class.data.find({"students" : professorID})
+        cursorList = []
+        for x in range(0, cursor.count(), 1):
+            dico = cursor[x]
+            dico["_id"] = ""
+            cursorList.append(dico)
+        return JsonResponse(cursorList, safe = False)
+    except Exception as e:
+        print(e)
+        return output('False') 
