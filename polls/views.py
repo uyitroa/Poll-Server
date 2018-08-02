@@ -104,6 +104,7 @@ def newAccount(request):
 		print(e)
 		return error()
 
+@require_GET
 def getCreatorQuestionByStatus(request, creatorID, status):
 	try:
 		cursor = global_question_class.data.find({'creatorID' : creatorID, 'status' : status})
@@ -116,5 +117,3 @@ def getCreatorQuestionByStatus(request, creatorID, status):
 	except Exception as e:
 		print(e)
 		return error()
-	
-	
