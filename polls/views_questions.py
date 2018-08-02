@@ -43,7 +43,8 @@ def submitQuestion(request):
 def updateQuestion(request):
 	try:
 		data_json = json.loads(request.body.decode("utf-8"))
-		global_question_class.update(data_json)
+		ide = data_json['id']
+		global_question_class.update(ide ,data_json)
 		return output('True')
 	except Exception as e:
 		print(e)
