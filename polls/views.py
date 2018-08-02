@@ -16,7 +16,7 @@ def error(error_message = "Error"):
 @require_GET
 def getQuestion(request, ide):
 	try:
-		question_json = global_question_class.getQuestionById(ide)
+		question_json = global_question_class.getDictById(ide)
 
 		if question_json == None:
 			return error()
