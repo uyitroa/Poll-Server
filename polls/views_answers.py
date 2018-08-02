@@ -56,6 +56,7 @@ def getAllAnswersByQuestionId(request, questionID):
 		cursorList = []
 		for x in range(0, cursor.count(), 1):
 			dico = cursor[x]
+			dico["_id"] = ""
 			cursorList.append(dico)
 		return JsonResponse(cursorList, safe = False)
 	except Exception as e:
