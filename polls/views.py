@@ -1,11 +1,13 @@
 from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
 from .setup import global_account_class, global_answer_class, global_question_class
+from .setup import *
 from rest_framework.decorators import api_view
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET
 import json
 import hashlib
+from pymongo import cursor
 
 # Create your views here.
 def error(error_message = "Error"):
@@ -57,7 +59,6 @@ def getAnswer(request, ide): # ide is questionID
 		answers = question_json['answers'] # get answer choices
 		data = {}
 		data["questionID"] = question_json['id']
-		data["text"] = question_json['text']
 		data["text"] = question_json['text']
 		data["images"] = question_json['images']
 		data["video"] = question_json['video']
@@ -113,6 +114,50 @@ def getCreatorQuestionByStatus(request, creatorID, status):
 			dico = cursor[x]
 			dico['_id'] = ''
 			cursorList.append(dico)
+		return JsonResponse(cursorList, safe = False)
+	except Exception as e:
+		print(e)
+		return error()
+
+@require_GET	
+def getQuestionsByCreatorId(request, creatorID):
+	try:
+		cursor = global_question_class.data.find({"creatorID" : creatorID})
+		cursorList = []
+		for x in range(0, cursor.count(), 1):
+			dico = cursor[x]
+			dico['_id'] = ''
+			cursorList.append(dico)
+		return JsonResponse(cursorList, safe = False)
+	except Exception as e:
+		print(e)
+		return error()
+
+@require_GET
+def getQuestionsByUserId(request, userID):
+	try:
+		cursor = global_answer_class.data.find({"userID" : userID})
+		cursorList = []
+		for x in range(0, cursor.count(), 1):
+			dico = cursor[x]
+			dicte = global_question_class.data.find_one({"id" : dico["questionID"]})
+			dicte['_id'] = ''
+			cursorList.append(dicte)
+		return JsonResponse(cursorList, safe = False)
+	except Exception as e:
+		print(e)
+		return error()
+
+def getUserByQuestionText(request, text):
+	try:
+		dict_questions = global_question_class.data.find_one({"text" : text})
+		dict_id = dict_questions["id"]
+		questionID = dict_id
+		cursorList = []
+		cursor_answers = global_answer_class.data.find({"questionID" : questionID})
+		for x in range(0, cursor_answers.count(), 1):
+			dico = cursor_answers[x]
+			cursorList.append(dico["userID"])
 		return JsonResponse(cursorList, safe = False)
 	except Exception as e:
 		print(e)

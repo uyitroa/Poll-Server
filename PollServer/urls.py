@@ -20,9 +20,12 @@ from polls import views
 urlpatterns = [
 	path('admin/', admin.site.urls),
 	path('questions/<str:ide>/', views.getQuestion, name = 'getQuestion'),
-	path('questions/<str:ide>/answers', views.getAnswer, name = 'getAnswer'),
+	path('questions/<str:ide>/answers/', views.getAnswer, name = 'getAnswer'),
 	path('answers/', views.submitAnswer, name = 'submitAnswer'),
 	path('questions/',  views.submitQuestion, name = 'submitQuestion'),
 	path('login/', views.checkLogin, name = 'checkLogin'),
-	path('questions/<str:creatorID>/<int:status>', views.getCreatorQuestionByStatus, name = 'getCreatorQuestionByStatus'),
+	path('questions/<str:creatorID>/<int:status>/', views.getCreatorQuestionByStatus, name = 'getCreatorQuestionByStatus'),
+	path('questions/creator/<str:creatorID>/', views.getQuestionsByCreatorId, name = 'getQuestionsByCreatorId'),
+	path('questions/user/<str:userID>/', views.getQuestionsByUserId, name = 'getQuestionsByUserId'),
+	path('set/<int:number>/', views.setNumber, name = 'setNumber'),
 ]
