@@ -167,6 +167,7 @@ def getQuestionsByUserId(request, userID):
 		print(e)
 		return output('False')
 
+@require_GET
 def getUserByQuestionText(request, text):
 	try:
 		dict_questions = global_question_class.data.find_one({"text" : text})
@@ -181,7 +182,8 @@ def getUserByQuestionText(request, text):
 	except Exception as e:
 		print(e)
 		return output('False')
-	
+
+@require_GET
 def getAllAnswersByQuestionId(request, questionID):
 	try:
 		dict_answers = global_answer_class.data.find_one({"questionID" : questionID})
@@ -195,3 +197,10 @@ def getAllAnswersByQuestionId(request, questionID):
 	except Exception as e:
 		print(e)
 		return output('False')
+
+@api_view(['POST'])
+@crsf_exempt
+def createSession(request):
+	try:
+		data = json.loads(request.body.decode("utf-8"))
+		
