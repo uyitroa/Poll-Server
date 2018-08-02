@@ -14,12 +14,13 @@ def output(error_message = "False"):
 
 def getAllSubjectsByStudentId(request, studentID):
     try:
-        cursor = global_session_class.data.find({"students" : studentID})
+        cursor = global_subject_class.data.find({"students" : studentID})
         cursorList = []
         for x in range(0, cursor.count(), 1):
             dico = cursor[x]
             dico["_id"] = ""
             cursorList.append(dico)
+        print(cursor.count())
         return JsonResponse(cursorList, safe = False)
     except Exception as e:
         print(e)
