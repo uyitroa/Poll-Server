@@ -138,7 +138,7 @@ def getQuestionsByUserId(request, userID):
 	try:
 		cursor = global_answer_class.data.find({"userID" : userID})
 		cursorList = []
-		for x in range(0, cursor.count(), 1):            
+		for x in range(0, cursor.count(), 1):
 			dico = cursor[x]
 			dicte = global_question_class.data.find_one({"id" : dico["questionID"]})
 			dicte['_id'] = ''
@@ -162,8 +162,3 @@ def getUserByQuestionText(request, text):
 	except Exception as e:
 		print(e)
 		return error()
-
-def setNumber(request, number):
-	global asdf
-	asdf.append(number)
-	return HttpResponse(asdf)
