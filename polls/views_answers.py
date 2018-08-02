@@ -41,8 +41,8 @@ def getAnswer(request, ide): # ide is questionID
 		for a in range(len(answers)):
 			list_answers.append({'value' : answers[a], 'users' : []})# add a list user for each field, for example {'non' : [], 'oui' : []}
 			for j in answer_json:
-				print(j['answer'])
-				if a in j['answer']: # if an answer is chosen by the user
+				mylist = j['answer']
+				if a in mylist: # if an answer is chosen by the user
 					list_answers[a]['users'].append(j['userID']) # then append it to the field for example {'non' : ['u1'], 'oui' : []}
 		data["answers"] = list_answers
 		print(data)
