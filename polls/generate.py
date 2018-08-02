@@ -1,4 +1,5 @@
 import random
+import json
 
 fichier = open("Questions.txt", "r")
 output = open("db.json", "a")
@@ -15,18 +16,18 @@ for x in range(len(list_type)):
 	group = group.split("\n")
 	for y in group:
 		if y != '':
-			json = {}
+			json_dict = {}
 			parts = y.split(" ? ")
-			json['text'] = parts[0] + "?"
-			json['id'] = "q" + str(idq)
-			json['type'] = x
-			json['images'] = []
-			json['video'] = "null"
-			json['status'] = random.randint(0, 2)
+			json_dict['text'] = parts[0] + "?"
+			json_dict['id'] = "q" + str(idq)
+			json_dict['type'] = x
+			json_dict['images'] = []
+			json_dict['video'] = "null"
+			json_dict['status'] = random.randint(0, 2)
 			answers = parts[1]
-			json['answers'] = answers.split(" / ")
-			json['creatorID'] = "c" + str(idc)
-			output.write(str(json) + ',\n')
+			json_dict['answers'] = answers.split(" / ")
+			json_dict['creatorID'] = "c" + str(idc)
+			output.write(json.dumps(json_dict) + ',\n')
 
 			if random.randint(0,1) == 0:
 				idc += 1

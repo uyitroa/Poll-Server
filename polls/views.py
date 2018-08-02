@@ -10,8 +10,8 @@ import hashlib
 from pymongo import cursor
 
 # Create your views here.
-def error(error_message = "Error"):
-	return HttpResponse(error_message)
+def output(error_message = "False"):
+	return JsonResponse({'update' : error_message})
 
 @require_GET
 def getQuestion(request, ide):
@@ -19,12 +19,12 @@ def getQuestion(request, ide):
 		question_json = global_question_class.getDictById(ide)
 
 		if question_json == None:
-			return error()
+			return output('False')
 		response = JsonResponse(question_json)
 		return response
 	except Exception as e:
 		print(e)
-		return error()
+		return output('False')
 
 @api_view(['POST'])
 @csrf_exempt
@@ -43,13 +43,32 @@ def submitAnswer(request):
 def submitQuestion(request):
 	try:
 		data_json = json.loads( request.body.decode('utf-8') )
-		print('request: ', request.body)
 		global_question_class.create(data_json)
 
-		return HttpResponse('True')
+		return output('True')
 	except Exception as e:
 		print(e)
-		return error('False')
+		return output('False')
+
+@api_view(['POST'])
+@crsf_exempt
+def updateQuestion(request):
+	try:
+		data_json = json.loads(request.body.decode("utf-8"))
+		global_question_class.update(data_json)
+		return output('True')
+	except Exception as e:
+		print(e)
+		return output('False')
+
+def deleteQuestion(request):
+	try:
+		data_json = json.loads(request.body.decode("utf-8"))
+		global_question_class.delete(data_json)
+		return output('True')
+	except Exception as e:
+		print(e)
+		return output('False')
 
 @require_GET
 def getAnswer(request, ide): # ide is questionID
@@ -73,7 +92,7 @@ def getAnswer(request, ide): # ide is questionID
 		return JsonResponse(data, safe = False) # return data
 	except Exception as e:
 		print(e)
-		return error()
+		return output('False')
 
 @api_view(['POST'])
 @csrf_exempt
@@ -90,7 +109,7 @@ def checkLogin(request):
 			return HttpResponse("False")
 	except Exception as e:
 		print(e)
-		return error()
+		return output('False')
 
 @api_view(['POST'])
 @csrf_exempt
@@ -103,7 +122,7 @@ def newAccount(request):
 		global_account_class.create(form_json)
 	except Exception as e:
 		print(e)
-		return error()
+		return output('False')
 
 @require_GET
 def getCreatorQuestionByStatus(request, creatorID, status):
@@ -117,7 +136,7 @@ def getCreatorQuestionByStatus(request, creatorID, status):
 		return JsonResponse(cursorList, safe = False)
 	except Exception as e:
 		print(e)
-		return error()
+		return output('False')
 
 @require_GET	
 def getQuestionsByCreatorId(request, creatorID):
@@ -131,7 +150,7 @@ def getQuestionsByCreatorId(request, creatorID):
 		return JsonResponse(cursorList, safe = False)
 	except Exception as e:
 		print(e)
-		return error()
+		return output('False')
 
 @require_GET
 def getQuestionsByUserId(request, userID):
@@ -146,7 +165,7 @@ def getQuestionsByUserId(request, userID):
 		return JsonResponse(cursorList, safe = False)
 	except Exception as e:
 		print(e)
-		return error()
+		return output('False')
 
 def getUserByQuestionText(request, text):
 	try:
@@ -161,7 +180,7 @@ def getUserByQuestionText(request, text):
 		return JsonResponse(cursorList, safe = False)
 	except Exception as e:
 		print(e)
-		return error()
+		return output('False')
 	
 def getAllAnswersByQuestionId(request, questionID):
 	try:
@@ -175,4 +194,4 @@ def getAllAnswersByQuestionId(request, questionID):
 		return JsonResponse(cursorList, safe = False)
 	except Exception as e:
 		print(e)
-		return error()
+		return output('False')

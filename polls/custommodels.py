@@ -38,9 +38,8 @@ class Model:
 			data['_id'] = ''
 		return data
 
-	def delete(self, *args):
-		"""delete(*id) #multiple args
-		ex: {'id' : 'q1'} or {'id' : 'q1'}, {'id' : 'q2'}"""
+	def delete(self, args):
+		"""delete(*id) #list of id"""
 		for x in args:
 			self.data.remove(x)
 

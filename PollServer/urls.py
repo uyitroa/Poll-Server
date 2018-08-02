@@ -18,12 +18,18 @@ from django.urls import path
 from polls import views
 
 urlpatterns = [
-	path('admin/', admin.site.urls),
+	#path('admin/', admin.site.urls),
 	path('questions/<str:ide>/', views.getQuestion, name = 'getQuestion'),
 	path('questions/<str:ide>/answers/', views.getAnswer, name = 'getAnswer'),
-	path('answers/', views.submitAnswer, name = 'submitAnswer'),
-	path('questions/',  views.submitQuestion, name = 'submitQuestion'),
+
+	path('answers/submit/', views.submitAnswer, name = 'submitAnswer'),
+
+	path('questions/submit/',  views.submitQuestion, name = 'submitQuestion'),
+	path('questions/update/', views.updateQuestion, name = 'updateQuestion'),
+	path('questions/delete/', views.deleteQuestion, name = 'deleteQuestion'),
+
 	path('login/', views.checkLogin, name = 'checkLogin'),
+
 	path('questions/<str:creatorID>/<int:status>/', views.getCreatorQuestionByStatus, name = 'getCreatorQuestionByStatus'),
 	path('questions/creator/<str:creatorID>/', views.getQuestionsByCreatorId, name = 'getQuestionsByCreatorId'),
 	path('questions/user/<str:userID>/', views.getQuestionsByUserId, name = 'getQuestionsByUserId'),
