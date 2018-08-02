@@ -12,4 +12,15 @@ import hashlib
 def output(error_message = "False"):
     return JsonResponse({'update' : error_message})
 
-def 
+def getAllSessionsByStudentId(request, studentID):
+    try:
+        cursor = global_session_class.data.find({"students" : studentID})
+        cursorList = []
+        for x in range(0, cursor.count(), 1):
+            dico = cursor[x]
+            dico["_id"] = ""
+            cursorList.append(dico)
+        return JsonResponse(cursorList, safe = False)
+    except Exception as e:
+        print(e)
+        return output('False') 
