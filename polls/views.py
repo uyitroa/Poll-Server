@@ -184,13 +184,11 @@ def getUserByQuestionText(request, text):
 	
 def getAllAnswersByQuestionId(request, questionID):
 	try:
-		dict_answers = global_answer_class.data.find_one({"questionID" : questionID})
-		dict_id = dict_answers["id"]
+		cursor = global_answer_class.data.find({"questionID" : questionID})
 		cursorList = []
-		cursor_answers = global_answer_class.data.find({"answer" : dict_id})
-		for x in range(0, cursor_answers.count(), 1):
-			dico = cursor_answers[x]
-			cursorList.append(dico["answer"])
+		for x in range(0, cursor.count(), 1):
+			dico = cursor[x]
+			cursorList.append(dico)
 		return JsonResponse(cursorList, safe = False)
 	except Exception as e:
 		print(e)
