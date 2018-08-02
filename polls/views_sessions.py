@@ -12,4 +12,36 @@ import hashlib
 def output(error_message = "False"):
     return JsonResponse({'update' : error_message})
 
-def 
+@api_view(['POST'])
+@csrf_exempt
+def createSession(request):
+	try:
+		data = json.loads(request.body.decode("utf-8"))
+		global_session_class.create(data)
+		return output("True")
+	except Exception as e:
+		print(e)
+		return output("False")
+
+@api_view(['POST'])
+@csrf_exempt
+def updateSession(request):
+	try:
+		data = json.loads(request.body.decode("utf-8"))
+		ide = data['id']
+		global_session_class.update(ide, data)
+		return output("True")
+	except Exception as e:
+		print(e)
+		return output("False")
+
+@api_view(['POST'])
+@csrf_exempt
+def deleteSession(request):
+	try:
+		data = json.loads(request.body.decode("utf-8"))
+		ide = data['id']
+		global_session_class.delete(ide)
+	except Exception as e:
+		print(e)
+		return output("False")

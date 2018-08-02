@@ -1,13 +1,13 @@
 from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
-from .setup import global_account_class, global_answer_class, global_question_class
+from .setup import global_account_class, global_answer_class, global_question_class, global_session_class, global_subject_class
 from .setup import *
 from rest_framework.decorators import api_view
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET
+from django.views.decorators.csrf import ensure_csrf_cookie
 import json
 import hashlib
-from pymongo import cursor
 
 # Create your views here.
 def output(error_message = "False"):
@@ -28,36 +28,38 @@ def getQuestion(request, ide):
 
 @api_view(['POST'])
 @csrf_exempt
+@ensure_csrf_cookie
 def submitQuestion(request):
 	try:
-		data_json = json.loads( request.body.decode('utf-8') )
-		global_question_class.create(data_json)
-
-		return output('True')
+		data = json.loads(request.body.decode("utf-8"))
+		global_question_class.create(data)
+		return output("True")
 	except Exception as e:
 		print(e)
-		return output('False')
+		return output("False")
 
 @api_view(['POST'])
 @csrf_exempt
 def updateQuestion(request):
 	try:
-		data_json = json.loads(request.body.decode("utf-8"))
-		ide = data_json['id']
-		global_question_class.update(ide ,data_json)
-		return output('True')
+		data = json.loads(request.body.decode("utf-8"))
+		ide = data['id']
+		global_question_class.update(ide, data)
+		return output("True")
 	except Exception as e:
 		print(e)
-		return output('False')
+		return output("False")
 
+@api_view(['POST'])
+@csrf_exempt
 def deleteQuestion(request):
 	try:
-		data_json = json.loads(request.body.decode("utf-8"))
-		global_question_class.delete(data_json)
-		return output('True')
+		data = json.loads(request.body.decode("utf-8"))
+		ide = data['id']
+		global_question_class.delete(ide)
 	except Exception as e:
 		print(e)
-		return output('False')
+		return output("False")
 
 @require_GET
 def getCreatorQuestionByStatus(request, creatorID, status):
