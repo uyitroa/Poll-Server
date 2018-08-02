@@ -64,4 +64,8 @@ class Account(Model):
 
 class Session(Model):
 	def __init__(self):
-		Model.__init__(self, DATABASE.session, 's')
+		Model.__init__(self, DATABASE.session, 'se')
+
+class Subject(Model):
+	def __init__(self):
+		Model.__init__(self, DATABASE.subject, 'su')
