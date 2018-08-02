@@ -1,4 +1,4 @@
-#python3.7
+#python3
 import sys
 sys.path.append("../")
 from pymongo import MongoClient
