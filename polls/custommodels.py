@@ -54,7 +54,7 @@ class Answer(Model):
 			
 class Account(Model):
 	def __init__(self):
-		Model._init__(self, DATABASE.account, 'acc')
+		Model.__init__(self, DATABASE.account, 'acc')
 	
 	def userLogin(self, login_json):
 		user = self.data.find_one({"username" : login_json["username"], "password" : login_json["password"]})
