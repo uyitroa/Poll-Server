@@ -201,4 +201,8 @@ def getAllAnswersByQuestionId(request, questionID):
 def createSession(request):
 	try:
 		data = json.loads(request.body.decode("utf-8"))
-		
+		global_session_global.create(data)
+		return output('True')
+	except Exception as e:
+		print(e)
+		return output('False')
