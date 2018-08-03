@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
 from .setup import global_account_class, global_answer_class, global_question_class
 from .setup import *
@@ -13,8 +12,6 @@ from pymongo import cursor
 def output(error_message = "False"):
 	return JsonResponse({'update' : error_message})
 
-@api_view(['POST'])
-@csrf_exempt
 def checkLogin(request):
 	try:
 		login_json = json.loads(request.body)
@@ -30,8 +27,6 @@ def checkLogin(request):
 		print(e)
 		return output('False')
 
-@api_view(['POST'])
-@csrf_exempt
 def newAccount(request):
 	try:
 		form_json = json.loads(request.body) # form_json = {"username" : "asdf", "password" : "af"}
@@ -39,6 +34,16 @@ def newAccount(request):
 		hash = hash.hexdigest()
 		form_json["password"] = hash
 		global_account_class.create(form_json)
+		return output("True")
+	except Exception as e:
+		print(e)
+		return output('False')
+
+def getUserByTypeId(request, typeID):
+	try:
+		data_json = global_account_class.data.find_one({"typeID" : typeID})
+		data_json["_id"] = ""
+		return JsonResponse(data_json)
 	except Exception as e:
 		print(e)
 		return output('False')

@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
 from .setup import global_account_class, global_answer_class, global_question_class, global_session_class, global_subject_class
 from .setup import *
@@ -26,9 +25,6 @@ def getQuestion(request, ide):
 		print(e)
 		return output('False')
 
-@api_view(['POST'])
-@csrf_exempt
-@ensure_csrf_cookie
 def submitQuestion(request):
 	try:
 		data = json.loads(request.body.decode("utf-8"))
@@ -38,8 +34,6 @@ def submitQuestion(request):
 		print(e)
 		return output("False")
 
-@api_view(['POST'])
-@csrf_exempt
 def updateQuestion(request):
 	try:
 		data = json.loads(request.body.decode("utf-8"))
@@ -50,8 +44,6 @@ def updateQuestion(request):
 		print(e)
 		return output("False")
 
-@api_view(['POST'])
-@csrf_exempt
 def deleteQuestion(request):
 	try:
 		data = json.loads(request.body.decode("utf-8"))

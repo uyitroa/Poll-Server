@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
 from .setup import global_account_class, global_answer_class, global_question_class, global_session_class, global_subject_class
 from .setup import *
@@ -12,39 +11,34 @@ import hashlib
 def output(error_message = "False"):
     return JsonResponse({'update' : error_message})
 
-@api_view(['POST'])
-@csrf_exempt
 def createSession(request):
-	try:
-		data = json.loads(request.body.decode("utf-8"))
-		global_session_class.create(data)
-		return output("True")
-	except Exception as e:
-		print(e)
-		return output("False")
+    try:
+        data = json.loads(request.body.decode("utf-8"))
+        global_session_class.create(data)
+        return output("True")
+    except Exception as e:
+        print(e)
+        return output("False")
 
-@api_view(['POST'])
-@csrf_exempt
 def updateSession(request):
-	try:
-		data = json.loads(request.body.decode("utf-8"))
-		ide = data['id']
-		global_session_class.update(ide, data)
-		return output("True")
-	except Exception as e:
-		print(e)
-		return output("False")
+    try:
+        data = json.loads(request.body.decode("utf-8"))
+        ide = data['id']
+        global_session_class.update(ide, data)
+        return output("True")
+    except Exception as e:
+        print(e)
+        return output("False")
 
-@api_view(['POST'])
-@csrf_exempt
 def deleteSession(request):
-	try:
-		data = json.loads(request.body.decode("utf-8"))
-		ide = data['id']
-		global_session_class.delete(ide)
-	except Exception as e:
-		print(e)
-		return output("False")
+    try:
+        data = json.loads(request.body.decode("utf-8"))
+        ide = data['id']
+        global_session_class.delete(ide)
+        return output("True")
+    except Exception as e:
+        print(e)
+        return output("False")
 
 @require_GET
 def getAllSessionsByStudentId(request, studentID):
@@ -72,4 +66,13 @@ def getAllSessionsByProfessorId(request, professorID):
         return JsonResponse(cursorList, safe = False)
     except Exception as e:
         print(e)
-        return output('False') 
+        return output('False')
+
+def getSessionById(request, ide):
+    try:
+        session_json = global_session_class.data.find_one({"id" : ide})
+        session_json["_id"] = ""
+        return JsonResponse(session_json, safe = False)
+    except Exception as e:
+        print(e)
+        return output('False')

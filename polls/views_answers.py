@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
 from .setup import global_account_class, global_answer_class, global_question_class
 from .setup import *
