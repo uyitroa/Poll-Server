@@ -41,10 +41,23 @@ def newAccount(request):
 
 def getUserByTypeId(request, typeID):
 	try:
-		data_json = global_account_class.data.find_one({"typeID" : typeID})
+		data_json = global_account_class.data.find_one({"userID" : typeID})
 		data_json["_id"] = ""
 		return JsonResponse(data_json)
 	except Exception as e:
 		print(e)
 		return output('False')
 
+def getAllByRole(request, rooole):
+	try:
+		cursor = global_account_class.data.find({"role" : rooole})
+		cursorList = []
+		for x in range(0, cursor.count(), 1):
+			dico = cursor[x]
+			dico["_id"] = ""
+			cursorList.append(dico)
+		return JsonResponse(cursorList, safe = False)
+	except Exception as e:
+		print(e)
+		return output('False')	
+		

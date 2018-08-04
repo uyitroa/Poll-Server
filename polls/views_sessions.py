@@ -6,6 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET
 import json
 import hashlib
+from pymongo import cursor
 
 # Create your views here.
 def output(error_message = "False"):
@@ -72,6 +73,46 @@ def getSessionById(request, ide):
     try:
         session_json = global_session_class.data.find_one({"id" : ide})
         session_json["_id"] = ""
+        return JsonResponse(session_json, safe = False)
+    except Exception as e:
+        print(e)
+        return output('False')
+    
+def getAllStudentsBySession(request, ide):
+    try:   
+        session_json = global_session_class.data.find_one({"id" : ide})
+        dict_account = session_json["students"]
+        accountList = []
+        for x in range(0, len(dict_account), 1):
+            print(dict_account)
+            account_json = global_account_class.data.find_one({"userID" : dict_account[x]})
+            account_json["_id"] = ""
+            accountList.append(account_json)
+        return JsonResponse(session_json, safe = False)
+    except Exception as e:
+            print(e)
+            return output('False')
+
+def getAllProfessorsBySession(request, ide):
+    try:
+        session_json = global_session_class.data.find_one({"id" : ide})
+        dict_account = session_json["professors"]
+        accountList = []
+        for x in range(0, len(dict_account), 1):
+            print(dict_account)
+            account_json = global_account_class.data.find_one({"userID" : dict_account[x]})
+            account_json["_id"] = ""
+            accountList.append(account_json)
+        return JsonResponse(session_json, safe = False)
+    except Exception as e:
+        print(e)
+        return output('False')
+
+def getAllQuestionsBySession(request, ide):
+    try:
+        session_json = global_session_class.data.find_one({"id" : ide})
+        cursor_questions = global_question_class.data.find({"text" : ide})
+        cursorList = []
         return JsonResponse(session_json, safe = False)
     except Exception as e:
         print(e)
