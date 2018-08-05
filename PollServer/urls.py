@@ -48,5 +48,8 @@ urlpatterns = [
 	path('sessions/allstudents/<str:studentID>/', views.getAllSessionsByStudentId, name = 'getAllSessionsByStudentId'),
 	
 	path('accounts/<str:typeID>/', views.getUserByTypeId, name = 'getUserByTypeId'),
+	path('accounts/submit/', views.createUser, name = 'createUser'),
+	path('accounts/update/', views.updateUser, name = 'updateUser'),
+	path('accounts/delete/', views.deleteUser, name = 'deleteUser'),
 	
 ]
