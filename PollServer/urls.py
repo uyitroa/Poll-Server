@@ -41,7 +41,9 @@ urlpatterns = [
 	path('subjects/allstudents/<str:ide>/', views.getAllStudentsBySubject, name = 'getAllStudentsBySubject'),
 	path('subjects/allprofessors/<str:ide>/', views.getAllProfessorsBySubject, name = 'getAllProfessorsBySubject'),
 	path('subjects/allsubjects/<str:ide>/', views.getAllSubjects, name = 'getAllSubjects'),
-	
+	path('subjects/addprof/', views.addProfToSubject, name = 'addProfToSubject'),
+	path('subjects/addstudent/', views.addStudentToSubject, name = 'addStudentToSubject'),
+
 	path('login/', views.checkLogin, name = 'checkLogin'),
 
 	path('sessions/submit/', views.createSession, name = 'createSession'),
@@ -51,11 +53,12 @@ urlpatterns = [
 	path('sessions/allsessions/<str:studentID>/', views.getAllSessionsByStudentId, name = 'getAllSessionsByStudentId'),
 	path('sessions/allstudents/<str:ide>/', views.getAllStudentsBySession, name = 'getAllStudentsBySession'),
 	path('sessions/allprofessors/<str:ide>/', views.getAllProfessorsBySession, name = 'getAllProfessorsBySession'),
+	path('sessions/addprof/', views.addProfToSession, name = 'addProfToSession'),
+	path('sessions/addstudent/', views.addStudentToSession, name = 'addStudentToSession'),
 	
 	path('accounts/<str:typeID>/', views.getUserByTypeId, name = 'getUserByTypeId'),
 	path('accounts/submit/', views.createUser, name = 'createUser'),
 	path('accounts/update/', views.updateUser, name = 'updateUser'),
 	path('accounts/delete/', views.deleteUser, name = 'deleteUser'),
 	path('accounts/all/<int:rooole>', views.getAllByRole, name = 'getAllByRole'),
-	
 ]

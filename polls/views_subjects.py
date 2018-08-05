@@ -116,3 +116,27 @@ def getAllSubjects(request, ide):
     except Exception as e:
             print(e)
             return output('False')
+
+def addProfToSubject(request):
+	try:
+		data = json.loads(request.body.decode("utf-8"))
+		subject_json = global_subject_class.find_one({"id" : data["subjectID"]})
+		list_prof = subject_json['professors']
+		list_prof.append(data["professorID"])
+		global_subject_class.update(data['sessionID'], {'professors' : list_prof})
+		return output('True')
+	except Exception as e:
+		print(e)
+		return output("False")
+
+def addStudentToSubject(request):
+	try:
+		data = json.loads(request.body.decode("utf-8"))
+		subject_json = global_subject_class.find_one({'id' : data['subjectID']})
+		list_student = subject_json['students']
+		list_student.append(data['studentID'])
+		global_subject_class.update(data['subjectID'], {'students' : list_student})
+		return output('True')
+	except Exception as e:
+		print(e)
+		return output('False')
