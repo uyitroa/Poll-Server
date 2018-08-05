@@ -33,11 +33,14 @@ urlpatterns = [
 	path('questions/user/<str:userID>/', views.getQuestionsByUserId, name = 'getQuestionsByUserId'),
 	path('questions/allanswers/<str:questionID>/', views.getAllAnswersByQuestionId, name = 'getAllAnswersByQuestionId'),
 	
-	path('subjects/allstudents/<str:studentID>/', views.getAllSubjectsByStudentId, name = 'getAllSubjectsByStudentId'),
+	path('subjects/allsubjects/<str:studentID>/', views.getAllSubjectsByStudentId, name = 'getAllSubjectsByStudentId'),
 	path('subjects/<str:ide>/', views.getSubjectById, name = 'getSubjectById'),
 	path('subjects/submit/',  views.submitSubject, name = 'submitSubject'),
 	path('subjects/update/', views.updateSubject, name = 'updateSubject'),
 	path('subjects/delete/', views.deleteSubject, name = 'deleteSubject'),
+	path('subjects/allstudents/<str:ide>/', views.getAllStudentsBySubject, name = 'getAllStudentsBySubject'),
+	path('subjects/allprofessors/<str:ide>/', views.getAllProfessorsBySubject, name = 'getAllProfessorsBySubject'),
+	path('subjects/allsubjects/<str:ide>/', views.getAllSubjects, name = 'getAllSubjects'),
 	
 	path('login/', views.checkLogin, name = 'checkLogin'),
 
@@ -45,11 +48,14 @@ urlpatterns = [
 	path('sessions/update/', views.updateSession, name = 'updateSession'),
 	path('sessions/delete/', views.deleteSession, name = 'deleteSession'),
 	path('sessions/<str:ide>/', views.getSessionById, name = 'getSessionById'),
-	path('sessions/allstudents/<str:studentID>/', views.getAllSessionsByStudentId, name = 'getAllSessionsByStudentId'),
+	path('sessions/allsessions/<str:studentID>/', views.getAllSessionsByStudentId, name = 'getAllSessionsByStudentId'),
+	path('sessions/allstudents/<str:ide>/', views.getAllStudentsBySession, name = 'getAllStudentsBySession'),
+	path('sessions/allprofessors/<str:ide>/', views.getAllProfessorsBySession, name = 'getAllProfessorsBySession'),
 	
 	path('accounts/<str:typeID>/', views.getUserByTypeId, name = 'getUserByTypeId'),
 	path('accounts/submit/', views.createUser, name = 'createUser'),
 	path('accounts/update/', views.updateUser, name = 'updateUser'),
 	path('accounts/delete/', views.deleteUser, name = 'deleteUser'),
+	path('accounts/all/<int:rooole>', views.getAllByRole, name = 'getAllByRole'),
 	
 ]

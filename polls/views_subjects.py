@@ -73,3 +73,46 @@ def deleteSubject(request):
     except Exception as e:
         print(e)
         return output("False")
+
+def getAllStudentsBySubject(request, ide):
+    try:
+        subject_json = global_session_class.data.find_one({"id" : ide})
+        dict_account = subject_json["students"]
+        accountList = []
+        for x in range(0, len(dict_account), 1):
+            print(dict_account)
+            account_json = global_account_class.data.find_one({"userID" : dict_account[x]})
+            account_json["_id"] = ""
+            accountList.append(account_json)
+        return JsonResponse(subject_json, safe = False)
+    except Exception as e:
+            print(e)
+            return output('False')
+    
+def getAllProfessorsBySubject(request, ide):
+    try:
+        subject_json = global_session_class.data.find_one({"id" : ide})
+        dict_account = subject_json["professors"]
+        accountList = []
+        for x in range(0, len(dict_account), 1):
+            print(dict_account)
+            account_json = global_account_class.data.find_one({"userID" : dict_account[x]})
+            account_json["_id"] = ""
+            accountList.append(account_json)
+        return JsonResponse(subject_json, safe = False)
+    except Exception as e:
+            print(e)
+            return output('False')
+
+def getAllSubjects(request, ide):
+    try:
+        cursor = global_subject_class.data.find({"id" : ide})
+        subjectList = []
+        for x in range(0, cursor.count(), 1):
+            dico = cursor[x]
+            dico["_id"] = ""
+            subjectList.append(dico)
+        return JsonResponse(subjectList, safe = False)
+    except Exception as e:
+            print(e)
+            return output('False')
