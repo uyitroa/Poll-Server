@@ -97,7 +97,7 @@ def getQuestionsByUserId(request, userID):
 		return output('False')
 
 @require_GET
-def getUserByQuestionText(request, text):
+def getAllUsersByQuestionText(request, text):
 	try:
 		dict_questions = global_question_class.data.find_one({"text" : text})
 		dict_id = dict_questions["id"]

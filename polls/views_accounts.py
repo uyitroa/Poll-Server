@@ -72,5 +72,23 @@ def getAllByRole(request, rooole):
 		return JsonResponse(cursorList, safe = False)
 	except Exception as e:
 		print(e)
-		return output('False')	
+		return output('False')
+def getAllQuestionsByStudentID(request, studentID):
+	try:
+		answer_json = global_answer_class.data.find({"userID" : studentID})
+		cursorList = []
+		for x in range(0, answer_json.count(), 1):
+			dico = answer_json[x]
+			dico["_id"] = ""
+			questionID = dico["questionID"]
+			questions_json = global_question_class.data.find_one({"id" : questionID})
+			questions_json["_id"] = ""
+			print(questionID)
+			cursorList.append(questions_json)
 		
+		return JsonResponse(cursorList, safe = False)
+	except Exception as e:
+		print(e)
+		return output('False')
+	
+def getAllQuestionsByProfessorID
