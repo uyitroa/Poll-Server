@@ -99,6 +99,7 @@ def getAllProfessorsBySession(request, ide):
         return output('False')
 
 def getAllQuestionsBySession(request, ide):
+    
     session_json = global_session_class.data.find_one({"id" : ide})
     creatorID = session_json["professors"]
     cursorList = []
@@ -109,3 +110,27 @@ def getAllQuestionsBySession(request, ide):
             dico["_id"] = ""
             cursorList.append(dico)
     return JsonResponse(cursorList, safe = False)
+
+def addStudentToSession(request):
+	try:
+		data = json.loads(request.body.decode('utf-8'))
+	`	session_json = global_session_class.data.find_one({'id' : data['sessionID']})
+		list_student = session_json['students']
+		list_student.append(data['studentID'])
+		global_session_class.update(data['sessionID'], {'students' : list_student})
+		return output('True')
+	except Exception as e:
+		print(e)
+		return output('False')
+
+def addProfToSession(request):
+	try:
+		data = json.loads(request.body.decode('utf-8'))
+		session_json = global_session_class.data.find_one({'id' : data['sessionID']})
+		list_prof = session_json['professors']
+		list_prof.append(data['professorID'])
+		global_session_class.update(data['sessionID'], {'professors' : list_prof})
+		return output('True')
+	except Exception as e:
+		print(e)
+		return output('False')

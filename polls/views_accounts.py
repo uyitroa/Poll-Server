@@ -19,17 +19,14 @@ def checkLogin(request):
 		hash = hash.hexdigest()
 		login_json["password"] = hash
 		account_login = global_account_class.userLogin(login_json)
-		if account_login == True:
-			return HttpResponse("True")
-		else:
-			return HttpResponse("False")
+		return JsonResponse(account_login)
 	except Exception as e:
 		print(e)
 		return output('False')
 
 def newAccount(request):
 	try:
-		form_json = json.loads(request.body) # form_json = {"username" : "asdf", "password" : "af"}
+		form_json = json.loads(request.body.decode("utf-8")) # form_json = {"username" : "asdf", "password" : "af"}
 		hash = hashlib.md5(form_json["password"].encode())
 		hash = hash.hexdigest()
 		form_json["password"] = hash
@@ -47,7 +44,23 @@ def getUserByTypeId(request, typeID):
 	except Exception as e:
 		print(e)
 		return output('False')
+def updateUser(request):
+	try:
+		new_data = json.loads(request.body.decode("utf-8"))
+		global_account_class.update(new_data['id'], new_data)
+		return output('True')
+	except Exception as e:
+		print(e)
+		return output('False')
 
+def deleteUser(request):
+	try:
+		data = json.loads(request.body.decode("utf-8"))
+		global_account_class.delete(data['id'])
+		return output('True')
+	except Exception as e:
+		print(e)
+		return output('False')
 def getAllByRole(request, rooole):
 	try:
 		cursor = global_account_class.data.find({"role" : rooole})
