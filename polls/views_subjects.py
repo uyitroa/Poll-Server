@@ -80,7 +80,6 @@ def getAllStudentsBySubject(request, ide):
         dict_account = subject_json["students"]
         accountList = []
         for x in range(0, len(dict_account), 1):
-            print(dict_account)
             account_json = global_account_class.data.find_one({"userID" : dict_account[x]})
             account_json["_id"] = ""
             accountList.append(account_json)
@@ -95,7 +94,6 @@ def getAllProfessorsBySubject(request, ide):
         dict_account = subject_json["professors"]
         accountList = []
         for x in range(0, len(dict_account), 1):
-            print(dict_account)
             account_json = global_account_class.data.find_one({"userID" : dict_account[x]})
             account_json["_id"] = ""
             accountList.append(account_json)
