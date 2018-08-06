@@ -112,25 +112,33 @@ def getAllQuestionsBySession(request, ide):
     return JsonResponse(cursorList, safe = False)
 
 def addStudentToSession(request):
-	try:
-		data = json.loads(request.body.decode('utf-8'))
-	`	session_json = global_session_class.data.find_one({'id' : data['sessionID']})
-		list_student = session_json['students']
-		list_student.append(data['studentID'])
-		global_session_class.update(data['sessionID'], {'students' : list_student})
-		return output('True')
-	except Exception as e:
-		print(e)
-		return output('False')
+    try:
+        data = json.loads(request.body.decode('utf-8'))
+        session_json = global_session_class.data.find_one({'id' : data['sessionID']})
+        list_student = session_json['students']
+        list_student.append(data['studentID'])
+        global_session_class.update(data['sessionID'], {'students' : list_student})
+        return output('True')
+    except Exception as e:
+        print(e)
+        return output('False')
 
 def addProfToSession(request):
-	try:
-		data = json.loads(request.body.decode('utf-8'))
-		session_json = global_session_class.data.find_one({'id' : data['sessionID']})
-		list_prof = session_json['professors']
-		list_prof.append(data['professorID'])
-		global_session_class.update(data['sessionID'], {'professors' : list_prof})
-		return output('True')
-	except Exception as e:
-		print(e)
-		return output('False')
+    try:
+        data = json.loads(request.body.decode('utf-8'))
+        session_json = global_session_class.data.find_one({'id' : data['sessionID']})
+        list_prof = session_json['professors']
+        list_prof.append(data['professorID'])
+        global_session_class.update(data['sessionID'], {'professors' : list_prof})
+        return output('True')
+    except Exception as e:
+        print(e)
+        return output('False')
+
+def cursorToList(cursor):
+    cursorList = []
+    for x in range(0, cursor.count(), 1):
+        dico = cursor[x]
+        dico["_id"] = ""
+        cursorList.append(dico)
+    return cursorList
