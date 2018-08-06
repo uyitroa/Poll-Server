@@ -45,11 +45,7 @@ def deleteSession(request):
 def getAllSessionsByStudentId(request, studentID):
     try:
         cursor = global_session_class.data.find({"students" : studentID})
-        cursorList = []
-        for x in range(0, cursor.count(), 1):
-            dico = cursor[x]
-            dico["_id"] = ""
-            cursorList.append(dico)
+        cursorList = cursorToList(cursor)
         return JsonResponse(cursorList, safe = False)
     except Exception as e:
         print(e)
@@ -59,11 +55,7 @@ def getAllSessionsByStudentId(request, studentID):
 def getAllSessionsByProfessorId(request, professorID):
     try:
         cursor = global_session_class.data.find({"students" : professorID})
-        cursorList = []
-        for x in range(0, cursor.count(), 1):
-            dico = cursor[x]
-            dico["_id"] = ""
-            cursorList.append(dico)
+        cursorList = cursorToList(cursor)
         return JsonResponse(cursorList, safe = False)
     except Exception as e:
         print(e)
@@ -84,7 +76,6 @@ def getAllStudentsBySession(request, ide):
         dict_account = session_json["students"]
         accountList = []
         for x in range(0, len(dict_account), 1):
-            print(dict_account)
             account_json = global_account_class.data.find_one({"userID" : dict_account[x]})
             account_json["_id"] = ""
             accountList.append(account_json)
@@ -99,7 +90,6 @@ def getAllProfessorsBySession(request, ide):
         dict_account = session_json["professors"]
         accountList = []
         for x in range(0, len(dict_account), 1):
-            print(dict_account)
             account_json = global_account_class.data.find_one({"userID" : dict_account[x]})
             account_json["_id"] = ""
             accountList.append(account_json)
@@ -109,11 +99,13 @@ def getAllProfessorsBySession(request, ide):
         return output('False')
 
 def getAllQuestionsBySession(request, ide):
-    try:
-        session_json = global_session_class.data.find_one({"id" : ide})
-        cursor_questions = global_question_class.data.find({"text" : ide})
-        cursorList = []
-        return JsonResponse(session_json, safe = False)
-    except Exception as e:
-        print(e)
-        return output('False')
+    session_json = global_session_class.data.find_one({"id" : ide})
+    creatorID = session_json["professors"]
+    cursorList = []
+    for posCreatorID in range(0, len(creatorID), 1):
+        cursor_sessions = global_question_class.data.find({"creatorID" : creatorID[posCreatorID]})
+        for x in range(0, cursor_sessions.count(), 1):
+            dico = cursor_sessions[x]
+            dico["_id"] = ""
+            cursorList.append(dico)
+    return JsonResponse(cursorList, safe = False)

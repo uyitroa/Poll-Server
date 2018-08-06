@@ -51,6 +51,7 @@ urlpatterns = [
 	path('sessions/allsessions/<str:studentID>/', views.getAllSessionsByStudentId, name = 'getAllSessionsByStudentId'),
 	path('sessions/allstudents/<str:ide>/', views.getAllStudentsBySession, name = 'getAllStudentsBySession'),
 	path('sessions/allprofessors/<str:ide>/', views.getAllProfessorsBySession, name = 'getAllProfessorsBySession'),
+	path('sessions/allquestions/<str:ide>/', views.getAllQuestionsBySession, name = 'getAllQuestionsBySession'),
 	
 	path('accounts/<str:typeID>/', views.getUserByTypeId, name = 'getUserByTypeId'),
 	path('accounts/all/<int:rooole>', views.getAllByRole, name = 'getAllByRole'),
