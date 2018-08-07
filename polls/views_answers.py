@@ -37,14 +37,15 @@ def getAnswer(request, ide): # ide is questionID
 		data["images"] = question_json['images']
 		data["video"] = question_json['video']
 		list_answers = [] # data output
-		for a in range(len(answers)):
-			list_answers.append({'value' : answers[a], 'users' : []})# add a list user for each field, for example {'non' : [], 'oui' : []}
-			for j in answer_json:
-				mylist = j['answer']
-				if a in mylist: # if an answer is chosen by the user
-					list_answers[a]['users'].append(j['userID']) # then append it to the field for example {'non' : ['u1'], 'oui' : []}
+		print(answers)
+		for j in answers:
+			cursor = global_answer_class.data.find({'answer' : j})
+			print(cursor.count())
+			user = []
+			for i in cursor:
+				user.append(i['userID'])
+			list_answers.append({'value' : j, 'users' : user})
 		data["answers"] = list_answers
-		print(data)
 		return JsonResponse(data, safe = False) # return data
 	except Exception as e:
 		traceback.print_exc()

@@ -91,4 +91,4 @@ def getAllQuestionsByStudentID(request, studentID):
 		print(e)
 		return output('False')
 	
-def getAllQuestionsByProfessorID
+#def getAllQuestionsByProfessorID(request, ):

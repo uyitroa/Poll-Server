@@ -20,7 +20,7 @@ from polls import views
 urlpatterns = [
 	#path('admin/', admin.site.urls),
 	path('questions/<str:ide>/', views.getQuestion, name = 'getQuestion'),
-	path('questions/<str:ide>/answers/', views.getAnswer, name = 'getAnswer'),
+	path('questions/allanswers/<str:ide>/', views.getAnswer, name = 'getAnswer'),
 
 	path('answers/submit/', views.submitAnswer, name = 'submitAnswer'),
 
@@ -28,12 +28,12 @@ urlpatterns = [
 	path('questions/update/', views.updateQuestion, name = 'updateQuestion'),
 	path('questions/delete/', views.deleteQuestion, name = 'deleteQuestion'),
 
-	path('questions/<str:creatorID>/<int:status>/', views.getCreatorQuestionByStatus, name = 'getCreatorQuestionByStatus'),
+	path('questions/creator/<str:creatorID>/status/<int:status>/', views.getCreatorQuestionByStatus, name = 'getCreatorQuestionByStatus'),
 	path('questions/creator/<str:creatorID>/', views.getQuestionsByCreatorId, name = 'getQuestionsByCreatorId'),
 	path('questions/user/<str:userID>/', views.getQuestionsByUserId, name = 'getQuestionsByUserId'),
-	path('questions/allanswers/<str:questionID>/', views.getAllAnswersByQuestionId, name = 'getAllAnswersByQuestionId'),
+	#path('questions/allanswers/<str:questionID>/', views.getAllAnswersByQuestionId, name = 'getAllAnswersByQuestionId'),
 	
-	path('subjects/allsubjects/<str:studentID>/', views.getAllSubjectsByStudentId, name = 'getAllSubjectsByStudentId'),
+	path('subjects/allsubjects/student/<str:studentID>/', views.getAllSubjectsByStudentId, name = 'getAllSubjectsByStudentId'),
 	path('subjects/<str:ide>/', views.getSubjectById, name = 'getSubjectById'),
 	path('subjects/submit/',  views.submitSubject, name = 'submitSubject'),
 	path('subjects/update/', views.updateSubject, name = 'updateSubject'),
@@ -58,8 +58,9 @@ urlpatterns = [
 	path('sessions/addstudent/', views.addStudentToSession, name = 'addStudentToSession'),
 
 	path('accounts/<str:typeID>/', views.getUserByTypeId, name = 'getUserByTypeId'),
-	path('accounts/submit/', views.createUser, name = 'createUser'),
+	path('accounts/submit/', views.newAccount, name = 'newAccount'),
 	path('accounts/update/', views.updateUser, name = 'updateUser'),
 	path('accounts/delete/', views.deleteUser, name = 'deleteUser'),
 	path('accounts/all/<int:rooole>', views.getAllByRole, name = 'getAllByRole'),
+	path('accounts/allquestions/<str:studentID>', views.getAllQuestionsByStudentID, name = 'getAllQuestionsByStudentID'),
 ]
