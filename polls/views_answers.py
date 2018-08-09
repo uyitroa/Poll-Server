@@ -39,7 +39,7 @@ def getAnswer(request, ide): # ide is questionID
 		list_answers = [] # data output
 		print(answers)
 		for j in answers:
-			cursor = global_answer_class.data.find({'answer' : j})
+			cursor = global_answer_class.data.find({'answers' : j})
 			print(cursor.count())
 			user = []
 			for i in cursor:
