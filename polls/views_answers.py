@@ -25,7 +25,7 @@ def submitAnswer(request):
 		print(e)
 		return JsonResponse({'update' : False})
 
-@require_GET
+#@require_GET
 def getAnswer(request, ide): # ide is questionID
 	try:
 		answer_json = global_answer_class.data.find({'questionID' : ide}) # get the users answers.
