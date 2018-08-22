@@ -31,7 +31,7 @@ def getAnswer(request, ide): # ide is questionID
 		answer_json = global_answer_class.data.find({'questionID' : ide}) # get the users answers.
 		question_json = global_question_class.getDictById(ide) # get the question of the answer
 		if question_json['type'] == 1:
-			answers = range(question_json['answers']['min'], question_json['answers']['max'], question_json['answers']['step'])
+			answers = range(question_json['answers']['min'], question_json['answers']['max'] + 1, question_json['answers']['step'])
 		else:
 			answers = question_json['answers'] # get answer choices
 		data = {}
