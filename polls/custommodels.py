@@ -4,15 +4,22 @@ class Question:
 	def __init__(self):
 		self.client = MongoClient('127.0.0.1', 27017)
 		self.data = self.client.db.question
-
+		if self.data.find_one({'count' : 'count'}) == None:
+			self.data.insert_one({'count' : 'count', 'length' : 0})
 	def createQuestion(self, question_json):
-		"""createQuestion(type, text, answers, images, video)"""
-		count = self.data.estimated_document_count() + 1
-		ide = 'q' + str(count)
+
+		"""createQuesiton(question_json)"""
+		count = self.data.find_one({'count' : 'count'})
+		count = count['length']
+
+		ide = 'q' + str(count + 1)
+		question_json['id'] = ide
+
 		self.data.insert_one(question_json)
+		self.data.update_one({'count' : 'count'}, {'$inc' : {'length' : 1}})
 
 	def updateQuestion(self, ide , what_to_update):
-		"""updateQuestion(id , what_to_update, new)
+		"""updateQuestion(id , what_to_update)
 
 		what_to_update -> string.   for example : 'id', 'type', 'text'
 		"""
@@ -25,7 +32,8 @@ class Question:
 		"""getQuestionById(id)"""
 		q = self.data.find_one({'id' : ide})
 		if q != None:
-			return q['text']
+			q['_id'] = ''
+			return q
 		return None
 
 	def deleteQuestion(self, *args):
@@ -40,12 +48,19 @@ class Answer:
 	def __init__(self):
 		self.client = MongoClient('127.0.0.1', 27017)
 		self.data = self.client.db.answer
-		
+		if self.data.find_one({'count' : 'count'}) == None:
+			self.data.insert_one({'count' : 'count', 'length' : 0})
+			
 	def createAnswer(self, answer_json):
 		"""createAnswer()"""
-		count = self.data.estimated_document_count() + 1
-		ide = "a" + str(count)
+		count = self.data.find_one({'count' : 'count'})
+		count = count['length']
+		
+		ide = 'a' + str(count + 1)
+		answer_json['id'] = ide
+		
 		self.data.insert_one(answer_json)
+		self.data.update_one({'count' : 'count'}, {'$inc' : {'length' : 1}})
 		
 	def updateAnswer(self, ide, to_update):
 		"""updateAnswer(id , to_update, new)
@@ -60,6 +75,6 @@ class Answer:
 		"""getAnswerById(id)"""
 		a = self.data.find_one({"id" : ide})
 		if a != None:
-			return a["answer"]
+			return a
 		else:
 			return None
